@@ -25,7 +25,7 @@ model Company {
     description  String?       @db.VarChar(255)
     about        String?       @db.VarChar(255)
     industry     String?       @db.VarChar(255)
-    Job          Job[]
+    job          Job[]
     applications Application[]
     location     Location[]
 
@@ -41,9 +41,9 @@ model Location {
     country String
 
     // relations
-    Company   Company? @relation(fields: [companyId], references: [id])
+    company   Company? @relation(fields: [companyId], references: [id])
     companyId String?
-    Job       Job[]
+    job       Job[]
 
     @@index([companyId])
 }
@@ -61,16 +61,16 @@ model Job {
     description        String           @db.VarChar(255)
     salaryAmount       Int
     salaryCurrencyCode String           @db.VarChar(3)
-    Application        Application[]
+    application        Application[]
     publishedAt        DateTime?
     closesAt           DateTime
-    UserJobRanking     UserJobRanking[]
+    userJobRanking     UserJobRanking[]
     isRemote           Boolean          @default(false)
 
     // relations
-    Location   Location @relation(fields: [locationId], references: [id])
+    location   Location @relation(fields: [locationId], references: [id])
     locationId String
-    Company    Company  @relation(fields: [companyId], references: [id])
+    company    Company  @relation(fields: [companyId], references: [id])
     companyId  String
 
     @@index([companyId])
@@ -103,12 +103,12 @@ model Application {
 
     // data
     publishedAt    DateTime?
-    ApplicationTag ApplicationTag[]
+    applicationTag ApplicationTag[]
 
     // relations
-    Company   Company? @relation(fields: [companyId], references: [id])
+    company   Company? @relation(fields: [companyId], references: [id])
     companyId String?
-    Job       Job?     @relation(fields: [jobId], references: [id])
+    job       Job?     @relation(fields: [jobId], references: [id])
     jobId     String?
 
     @@index([ownedBy])
@@ -122,9 +122,9 @@ model ApplicationTag {
     ownedBy   String
 
     // relations
-    Application   Application @relation(fields: [applicationId], references: [id])
+    application   Application @relation(fields: [applicationId], references: [id])
     applicationId String
-    Tag           Tag         @relation(fields: [tagId], references: [id])
+    tag           Tag         @relation(fields: [tagId], references: [id])
     tagId         String
 
     @@id([applicationId, tagId])
