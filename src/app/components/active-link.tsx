@@ -9,26 +9,26 @@ import clsx from "clsx";
 
 type ActiveLinkProps = LinkProps & {
     className?: string;
+    inactiveClassName?: string;
     activeClassName: string;
 };
 
 export function ActiveLink({
     children,
+    inactiveClassName,
     activeClassName,
     className,
     ...props
 }: PropsWithChildren<ActiveLinkProps>) {
     const pathname = usePathname();
 
-    console.log(pathname, props.href);
-
     return (
         <Link
+            {...props}
             className={clsx(
                 className,
-                pathname === props.href && activeClassName
+                pathname === props.href ? activeClassName : inactiveClassName
             )}
-            {...props}
         >
             {children}
         </Link>
