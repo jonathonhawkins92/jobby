@@ -23,13 +23,29 @@ model Company {
     logoUrl      String?       @db.VarChar(255)
     name         String        @db.VarChar(255)
     description  String?       @db.VarChar(255)
-    location     String?       @db.VarChar(255)
     about        String?       @db.VarChar(255)
     industry     String?       @db.VarChar(255)
     Job          Job[]
     applications Application[]
+    location     Location[]
 
     @@index([ownedBy])
+}
+
+model Location {
+    id      String  @id @default(cuid())
+    name    String
+    address String
+    city    String
+    region  String?
+    country String
+
+    // relations
+    Company   Company? @relation(fields: [companyId], references: [id])
+    companyId String?
+    Job       Job[]
+
+    @@index([companyId])
 }
 
 model Job {
@@ -49,12 +65,16 @@ model Job {
     publishedAt        DateTime?
     closesAt           DateTime
     UserJobRanking     UserJobRanking[]
+    isRemote           Boolean          @default(false)
 
     // relations
-    company   Company @relation(fields: [companyId], references: [id])
-    companyId String
+    Location   Location @relation(fields: [locationId], references: [id])
+    locationId String
+    Company    Company  @relation(fields: [companyId], references: [id])
+    companyId  String
 
     @@index([companyId])
+    @@index([locationId])
 }
 
 model JobTag {

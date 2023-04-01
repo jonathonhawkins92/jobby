@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const config = {
-	experimental: {
-		appDir: true,
-	},
-	reactStrictMode: true,
+    experimental: {
+        appDir: true,
+    },
+    reactStrictMode: true,
 
     /**
      * If you have the "experimental: { appDir: true }" setting enabled, then you
@@ -16,8 +16,9 @@ const config = {
         defaultLocale: "en",
     },
     images: {
-        domains: ["images.clerk.dev"],
+        domains: ["images.clerk.dev", "cdn.shopify.com"],
     },
 };
 
 export default config;
+
