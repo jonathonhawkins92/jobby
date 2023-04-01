@@ -20,6 +20,8 @@ export function ActiveLink({
 }: PropsWithChildren<ActiveLinkProps>) {
     const pathname = usePathname();
 
+    console.log(pathname, props.href);
+
     return (
         <Link
             className={clsx(
