@@ -11,12 +11,136 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Post {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    authorId  String
-    content   String   @db.VarChar(255)
+model Company {
+    // meta
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    id        String    @id @default(cuid())
+    ownedBy   String
 
-    @@index([authorId])
+    // data
+    logoUrl      String?       @db.VarChar(255)
+    name         String        @db.VarChar(255)
+    description  String?       @db.VarChar(255)
+    location     String?       @db.VarChar(255)
+    about        String?       @db.VarChar(255)
+    industry     String?       @db.VarChar(255)
+    Job          Job[]
+    applications Application[]
+
+    @@index([ownedBy])
+}
+
+model Job {
+    // meta
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    id        String    @id @default(cuid())
+
+    // data
+    tag                JobTag[]
+    title              String           @db.VarChar(255)
+    description        String           @db.VarChar(255)
+    salaryAmount       Int
+    salaryCurrencyCode String           @db.VarChar(3)
+    Application        Application[]
+    publishedAt        DateTime?
+    closesAt           DateTime
+    UserJobRanking     UserJobRanking[]
+
+    // relations
+    company   Company @relation(fields: [companyId], references: [id])
+    companyId String
+
+    @@index([companyId])
+}
+
+model JobTag {
+    // meta
+    createdAt DateTime @default(now())
+    ownedBy   String
+
+    // relations
+    job   Job    @relation(fields: [jobId], references: [id])
+    jobId String
+    tag   Tag    @relation(fields: [tagId], references: [id])
+    tagId String
+
+    @@id([jobId, tagId])
+    @@index([tagId])
+    @@index([jobId])
+}
+
+model Application {
+    // meta
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    id        String    @id @default(cuid())
+    ownedBy   String // Applicant user id
+
+    // data
+    publishedAt    DateTime?
+    ApplicationTag ApplicationTag[]
+
+    // relations
+    Company   Company? @relation(fields: [companyId], references: [id])
+    companyId String?
+    Job       Job?     @relation(fields: [jobId], references: [id])
+    jobId     String?
+
+    @@index([ownedBy])
+    @@index([companyId])
+    @@index([jobId])
+}
+
+model ApplicationTag {
+    // meta
+    createdAt DateTime @default(now())
+    ownedBy   String
+
+    // relations
+    Application   Application @relation(fields: [applicationId], references: [id])
+    applicationId String
+    Tag           Tag         @relation(fields: [tagId], references: [id])
+    tagId         String
+
+    @@id([applicationId, tagId])
+    @@index([tagId])
+    @@index([applicationId])
+}
+
+model Tag {
+    // meta
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+
+    // data
+    id    String @id @default(cuid())
+    value String @db.VarChar(255)
+
+    // relations
+    ApplicationTag ApplicationTag[]
+    JobTag         JobTag[]
+}
+
+model UserJobRanking {
+    // meta
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    id        String    @id @default(cuid())
+    ownedBy   String
+
+    // data
+    rank Int
+
+    // relations
+    job   Job    @relation(fields: [jobId], references: [id])
+    jobId String
+
+    @@index([jobId])
 }
