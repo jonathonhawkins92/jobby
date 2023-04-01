@@ -1,18 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
 import { prisma } from "@/../prisma/db";
 import Image from "next/image";
 
-async function getJobIds() {
-    return prisma.job.findMany({
-        select: {
-            id: true,
-        },
-    });
-}
 async function getJobById(id: string) {
     const job = await prisma.job.findUnique({
         where: {
@@ -66,7 +54,7 @@ async function Job({ id }: { id: string }) {
     if (!job) return null;
 
     return (
-        <article className="rounded-lg border border-gray-200 bg-white p-4 shadow dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:p-8">
+        <article className="rounded-lg border border-slate-200 bg-white p-6 shadow dark:border-slate-700 dark:bg-slate-800 dark:text-white">
             <header className="flex gap-4">
                 <div>
                     {job.logo && (
@@ -90,7 +78,7 @@ async function Job({ id }: { id: string }) {
                 <ul className="flex flex-wrap gap-2">
                     {job.tags.map((tag) => (
                         <li key={tag.id}>
-                            <span className="border-grey-700 rounded-md border px-2 py-1">
+                            <span className="rounded-md border border-slate-700 px-2 py-1">
                                 {tag.value}
                             </span>
                         </li>
@@ -101,22 +89,26 @@ async function Job({ id }: { id: string }) {
     );
 }
 
+async function getJobIds() {
+    return prisma.job.findMany({
+        select: {
+            id: true,
+        },
+    });
+}
+
 export default async function Home() {
     const jobIds = await getJobIds();
 
     return (
-        <main className={inter.className}>
-            <section>
-                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                    {jobIds.map((j) => (
-                        <li key={j.id}>
-                            {/* @ts-expect-error Server Component */}
-                            <Job id={j.id} />
-                        </li>
-                    ))}
-                </ul>
-            </section>
-        </main>
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {jobIds.map((j) => (
+                <li key={j.id} className="grow sm:grow-0">
+                    {/* @ts-expect-error Server Component */}
+                    <Job id={j.id} />
+                </li>
+            ))}
+        </ul>
     );
 }
 

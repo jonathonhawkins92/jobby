@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 export function NavToggle({
@@ -12,7 +11,7 @@ export function NavToggle({
     return (
         <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-md border bg-white p-[6px] align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-gray-800"
+            className="inline-flex items-center justify-center gap-2 rounded-md border bg-white p-[6px] align-middle text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-slate-800"
             aria-label="Toggle navigation"
             onClick={onClick}
             {...props}
