@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import clsx from "clsx";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { randomArrayValue } from "~/utils/array";
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,10 +30,12 @@ export const descriptions = [
     "Don't let a 💩 job stink up your life. It's time to clear the air and find a job that brings you joy.",
 ];
 
-export const metadata = {
-    title: "Jobby",
-    description: randomArrayValue(descriptions),
-};
+export function generateMetadata(): Metadata {
+    return {
+        title: "Jobby",
+        description: randomArrayValue(descriptions),
+    };
+}
 
 export default function RootLayout({
     children,
