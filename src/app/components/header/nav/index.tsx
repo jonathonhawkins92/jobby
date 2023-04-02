@@ -11,30 +11,28 @@ function NavListItem({ children }: PropsWithChildren) {
     return <li className="flex justify-end">{children}</li>;
 }
 
+const authButtonClassName =
+    "font-medium text-slate-700 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100";
 function AuthButton() {
     const router = useRouter();
     const { isLoaded, isSignedIn } = useUser();
 
     if (!isLoaded) {
         return (
-            <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
+            <button className={authButtonClassName}>
                 <span>Loading…</span>
             </button>
         );
     } else if (isSignedIn) {
         return (
             <SignOutButton signOutCallback={() => router.push("/")}>
-                <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
-                    Sign out
-                </button>
+                <button className={authButtonClassName}>Sign out</button>
             </SignOutButton>
         );
     } else {
         return (
             <SignInButton>
-                <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
-                    Sign in
-                </button>
+                <button className={authButtonClassName}>Sign in</button>
             </SignInButton>
         );
     }

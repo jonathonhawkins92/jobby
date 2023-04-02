@@ -7,8 +7,8 @@ export function NavLink({ children, ...props }: PropsWithChildren<LinkProps>) {
         <ActiveLink
             {...props}
             className="font-medium"
-            inactiveClassName="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400"
-            activeClassName="text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400"
+            inactiveClassName="text-slate-700 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
+            activeClassName="text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
         >
             {children}
         </ActiveLink>
