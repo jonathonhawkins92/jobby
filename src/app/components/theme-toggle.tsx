@@ -2,23 +2,47 @@
 
 import { useEffect, useState } from "react";
 
+const THEME = {
+    dark: "dark",
+    light: "light",
+} as const;
+
+type Theme = ObjectValues<typeof THEME>;
+type ThemeLiteral = `${Theme}`;
+
+function getTheme() {
+    if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+        return "dark";
+    } else {
+        return "light";
+    }
+}
+
 export function ThemeToggle() {
-    const [isDark, setIsDark] = useState(
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-    );
+    const [theme, setTheme] = useState<ThemeLiteral>(getTheme());
 
     useEffect(() => {
-        if (isDark) {
+        if (theme === "dark") {
             document.documentElement.classList.add("dark");
         } else {
             document.documentElement.classList.remove("dark");
         }
-    }, [isDark]);
+    }, [theme]);
 
     return (
         <button
             id="theme-toggle"
-            onClick={() => setIsDark((d) => !d)}
+            onClick={() =>
+                setTheme((current) => {
+                    const theme = current === "dark" ? "light" : "dark";
+                    localStorage.theme = theme;
+                    return theme;
+                })
+            }
             type="button"
             className="m-1 inline-flex items-center justify-center gap-2 rounded-md border bg-white p-1 align-middle text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-slate-800"
         >
@@ -29,7 +53,7 @@ export function ThemeToggle() {
                 fill="currentColor"
                 viewBox="0 0 20 20"
             >
-                {isDark ? (
+                {theme === "dark" ? (
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 ) : (
                     <path
