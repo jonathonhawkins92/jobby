@@ -18,14 +18,14 @@ function AuthButton() {
     if (!isLoaded) {
         return (
             <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
-                <span>Loading...</span>
+                <span>Loading…</span>
             </button>
         );
     } else if (isSignedIn) {
         return (
             <SignOutButton signOutCallback={() => router.push("/")}>
                 <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
-                    Sign in
+                    Sign out
                 </button>
             </SignOutButton>
         );
