@@ -98,7 +98,7 @@ export function generateMetadata(): Metadata {
             siteName: "Jobby",
             images: [
                 {
-                    url: "https://jobby-seven.vercel.app/favicon-512x512.png",
+                    url: "https://jobby-seven.vercel.app/favicon-192x192.png",
                     width: 512,
                     height: 512,
                 },
