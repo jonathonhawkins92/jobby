@@ -31,10 +31,81 @@ export const descriptions = [
 ];
 
 export function generateMetadata(): Metadata {
+    const title = "Jobby - Home";
+    const description = randomArrayValue(descriptions);
     return {
-        title: "Jobby",
-        description: randomArrayValue(descriptions),
-        icons: "/logo.webp",
+        title,
+        description,
+        icons: {
+            icon: [
+                {
+                    url: "/favicon-16x16.png",
+                    sizes: "16x16",
+                    type: "image/png",
+                },
+                {
+                    url: "/favicon-32x32.png",
+                    sizes: "32x32",
+                    type: "image/png",
+                },
+                {
+                    url: "/favicon-192x192.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                },
+                {
+                    url: "/favicon-512x512.png",
+                    sizes: "512x512",
+                    type: "image/png",
+                },
+            ],
+            apple: [
+                {
+                    url: "/apple-icon.png",
+                    sizes: "180x180",
+                    type: "image/png",
+                },
+            ],
+        },
+        robots: {
+            index: true,
+            follow: true,
+            nocache: true,
+            noarchive: true,
+            noimageindex: true,
+            notranslate: false,
+            indexifembedded: false,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            googleBot: {
+                index: true,
+                follow: true,
+                nocache: true,
+                noarchive: true,
+                noimageindex: true,
+                notranslate: false,
+                indexifembedded: false,
+                "max-video-preview": -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
+        },
+        openGraph: {
+            title,
+            description,
+            url: "https://jobby-seven.vercel.app/",
+            siteName: "Jobby",
+            images: [
+                {
+                    url: "https://jobby-seven.vercel.app/favicon-512x512.png",
+                    width: 512,
+                    height: 512,
+                },
+            ],
+            locale: "en-GB",
+            type: "website",
+        },
     };
 }
 
