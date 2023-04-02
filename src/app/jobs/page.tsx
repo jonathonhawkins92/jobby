@@ -1,5 +1,10 @@
 import { prisma } from "@/../prisma/db";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Jobby - Jobs",
+};
 
 async function getJobs() {
     const jobs = await prisma.job.findMany({
@@ -101,51 +106,7 @@ export default async function Jobs() {
 
     return (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-                ...jobs,
-            ].map((j) => (
+            {jobs.map((j) => (
                 <li key={j.id} className="grow sm:grow-0">
                     <Job
                         logo={j.logo}

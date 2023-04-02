@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 import { NavLink } from "./link";
 import { NavToggle } from "./toggle";
 import clsx from "clsx";

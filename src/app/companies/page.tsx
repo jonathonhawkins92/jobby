@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Jobby - Companies",
+};
+
 export default function Companies() {
     return (
         <div className="mx-auto flex flex-col items-center justify-center py-32 text-center sm:py-48 lg:py-56">
