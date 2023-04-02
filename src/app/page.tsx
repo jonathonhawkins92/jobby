@@ -22,7 +22,7 @@ export default function Home() {
                 </Link>
                 <Link
                     href="/companies"
-                    className="rounded-md px-3 py-1 text-sm font-semibold leading-6 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:text-white"
+                    className="rounded-md border bg-white px-3 py-1 align-middle text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-slate-800"
                 >
                     Companies
                 </Link>
