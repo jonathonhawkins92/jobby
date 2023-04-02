@@ -85,10 +85,11 @@ function Job({
             <section className="pt-4">
                 <ul className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
-                        <li key={tag.id}>
-                            <span className="rounded-md border border-slate-700 px-2 py-1">
-                                {tag.value}
-                            </span>
+                        <li
+                            key={tag.id}
+                            className="rounded-md border border-slate-700 px-2 py-1"
+                        >
+                            {tag.value}
                         </li>
                     ))}
                 </ul>

@@ -1,6 +1,6 @@
 import "./global.css";
 import { Header } from "./components/header";
-import { Nav } from "./components/nav";
+import { Controls } from "./components/header/controls";
 import { Inter } from "next/font/google";
 import clsx from "clsx";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
@@ -57,7 +57,7 @@ export default function RootLayout({
                 <ClerkProvider>
                     <div className="flex h-screen flex-col ">
                         <Header className="grow-0">
-                            <Nav />
+                            <Controls />
                         </Header>
                         <main className="grow overflow-y-auto">
                             <div className="container mx-auto p-4">

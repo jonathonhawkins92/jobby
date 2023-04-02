@@ -2,10 +2,9 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import type { PropsWithChildren, ReactNode } from "react";
-import { NavLink } from "./nav-link";
-import { NavToggle } from "./nav-toggle";
+import { NavLink } from "./link";
+import { NavToggle } from "./toggle";
 import clsx from "clsx";
-import { ThemeToggle } from "./theme-toggle";
 
 function NavListItem({ children }: PropsWithChildren) {
     return <li className="flex justify-end">{children}</li>;
@@ -35,10 +34,9 @@ export function Nav() {
 
     return (
         <nav
-            className="flex min-h-[2rem] flex-row flex-wrap items-center justify-end gap-2 sm:flex-row-reverse sm:flex-nowrap sm:gap-5 "
+            className="flex min-h-[2rem] flex-wrap items-center justify-end gap-2 sm:flex-nowrap sm:gap-5"
             aria-label="Global"
         >
-            <ThemeToggle />
             <div className="sm:hidden">
                 <NavToggle
                     isToggled={isToggled}
