@@ -1,10 +1,19 @@
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
 
-export function Header({ children }: PropsWithChildren) {
+export function Header({
+    children,
+    className,
+}: PropsWithChildren<{ className?: string }>) {
     return (
-        <header className="sticky top-0 z-50 border-b border-slate-200 bg-white p-4 text-sm dark:border-slate-700 dark:bg-slate-800 ">
+        <header
+            className={clsx(
+                "top-0 z-50 border-b border-slate-200 bg-white/10 p-4 text-sm dark:border-slate-700 dark:bg-gray-900/10 ",
+                className
+            )}
+        >
             <div className="container mx-auto flex w-full flex-wrap items-start justify-between">
                 <Link
                     href="/"

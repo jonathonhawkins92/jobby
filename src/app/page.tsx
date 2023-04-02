@@ -1,114 +1,31 @@
-import { prisma } from "@/../prisma/db";
-import Image from "next/image";
+import Link from "next/link";
+import { randomArrayValue } from "~/utils/array";
+import { descriptions } from "./layout";
 
-async function getJobById(id: string) {
-    const job = await prisma.job.findUnique({
-        where: {
-            id,
-        },
-        select: {
-            id: true,
-            title: true,
-            description: true,
-            salaryAmount: true,
-            salaryCurrencyCode: true,
-            company: {
-                select: {
-                    logoUrl: true,
-                    name: true,
-                },
-            },
-            tag: {
-                select: {
-                    tag: {
-                        select: {
-                            id: true,
-                            value: true,
-                        },
-                    },
-                },
-            },
-        },
-    });
-
-    if (!job) return null;
-
-    const salary = new Intl.NumberFormat("en", {
-        style: "currency",
-        currency: job.salaryCurrencyCode,
-    }).format(job.salaryAmount);
-
-    return {
-        id: job.id,
-        title: job.title,
-        description: job.description,
-        salary,
-        logo: job.company.logoUrl,
-        company: job.company.name,
-        tags: job.tag.map(({ tag }) => ({ id: tag.id, value: tag.value })),
-    };
-}
-
-async function Job({ id }: { id: string }) {
-    const job = await getJobById(id);
-    if (!job) return null;
-
+export default function Home() {
     return (
-        <article className="rounded-lg border border-slate-200 bg-white p-6 shadow dark:border-slate-700 dark:bg-slate-800 dark:text-white">
-            <header className="flex gap-4">
-                <div>
-                    {job.logo && (
-                        <Image
-                            src={job.logo}
-                            width={48}
-                            height={48}
-                            alt={`${job.company} Logo`}
-                        />
-                    )}
-                </div>
-                <div>
-                    <h1>{job.company}</h1>
-                    <h2>
-                        {job.title} · {job.salary}
-                    </h2>
-                </div>
-                <div></div>
-            </header>
-            <section className="pt-4">
-                <ul className="flex flex-wrap gap-2">
-                    {job.tags.map((tag) => (
-                        <li key={tag.id}>
-                            <span className="rounded-md border border-slate-700 px-2 py-1">
-                                {tag.value}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
-            </section>
-        </article>
-    );
-}
-
-async function getJobIds() {
-    return prisma.job.findMany({
-        select: {
-            id: true,
-        },
-    });
-}
-
-export default async function Home() {
-    const jobIds = await getJobIds();
-
-    return (
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {jobIds.map((j) => (
-                <li key={j.id} className="grow sm:grow-0">
-                    {/* @ts-expect-error Server Component */}
-                    <Job id={j.id} />
-                </li>
-            ))}
-        </ul>
+        <div className="mx-auto flex flex-col items-center justify-center py-32 text-center sm:py-48 lg:py-56">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-800 dark:text-white sm:text-6xl">
+                <p>Welcome to Jobby</p>
+            </h1>
+            <h2 className="mt-6 text-lg leading-8 text-slate-800 dark:text-white">
+                <p>{randomArrayValue(descriptions)}</p>
+            </h2>
+            <div className="mt-6 flex items-center justify-center gap-x-6">
+                <Link
+                    href="/jobs"
+                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    Jobs
+                </Link>
+                <Link
+                    href="/companies"
+                    className="text-sm font-semibold leading-6 text-slate-800 dark:text-white"
+                >
+                    Companies
+                </Link>
+            </div>
+        </div>
     );
 }
 
