@@ -33,12 +33,11 @@ export const description = randomArrayValue(descriptions);
 
 export function generateMetadata(): Metadata {
     const title = "Jobby - Home";
-    const sizes = [16, 32, 192, 512];
     return {
         title,
         description,
         icons: {
-            icon: sizes.map((s) => ({
+            icon: [16, 32, 192, 512].map((s) => ({
                 url: `/favicon-${s}x${s}.png`,
                 sizes: `${s}x${s}`,
                 type: "image/png",
@@ -80,11 +79,13 @@ export function generateMetadata(): Metadata {
             description,
             url: "https://jobby-seven.vercel.app/",
             siteName: "Jobby",
-            images: sizes.map((s) => ({
-                url: `https://jobby-seven.vercel.app/favicon-${s}x${s}.png`,
-                width: s,
-                height: s,
-            })),
+            images: [
+                {
+                    url: "https://jobby-seven.vercel.app/favicon-512x512.png",
+                    width: 512,
+                    height: 512,
+                },
+            ],
             locale: "en-GB",
             type: "website",
         },
@@ -92,9 +93,7 @@ export function generateMetadata(): Metadata {
             card: "summary_large_image",
             title,
             description,
-            images: sizes.map(
-                (s) => `https://jobby-seven.vercel.app/favicon-${s}x${s}.png`
-            ),
+            images: ["https://jobby-seven.vercel.app/favicon-512x512.png"],
         },
     };
 }
