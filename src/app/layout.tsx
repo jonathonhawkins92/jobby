@@ -34,7 +34,7 @@ export function generateMetadata(): Metadata {
     return {
         title: "Jobby",
         description: randomArrayValue(descriptions),
-        icons: "/favicon.ico",
+        icons: "/logo.webp",
     };
 }
 
