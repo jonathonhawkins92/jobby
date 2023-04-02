@@ -33,32 +33,16 @@ export const description = randomArrayValue(descriptions);
 
 export function generateMetadata(): Metadata {
     const title = "Jobby - Home";
+    const sizes = [16, 32, 192, 512];
     return {
         title,
         description,
         icons: {
-            icon: [
-                {
-                    url: "/favicon-16x16.png",
-                    sizes: "16x16",
-                    type: "image/png",
-                },
-                {
-                    url: "/favicon-32x32.png",
-                    sizes: "32x32",
-                    type: "image/png",
-                },
-                {
-                    url: "/favicon-192x192.png",
-                    sizes: "192x192",
-                    type: "image/png",
-                },
-                {
-                    url: "/favicon-512x512.png",
-                    sizes: "512x512",
-                    type: "image/png",
-                },
-            ],
+            icon: sizes.map((s) => ({
+                url: `/favicon-${s}x${s}.png`,
+                sizes: `${s}x${s}`,
+                type: "image/png",
+            })),
             apple: [
                 {
                     url: "/apple-icon.png",
@@ -96,15 +80,21 @@ export function generateMetadata(): Metadata {
             description,
             url: "https://jobby-seven.vercel.app/",
             siteName: "Jobby",
-            images: [
-                {
-                    url: "https://jobby-seven.vercel.app/favicon-192x192.png",
-                    width: 512,
-                    height: 512,
-                },
-            ],
+            images: sizes.map((s) => ({
+                url: `https://jobby-seven.vercel.app/favicon-${s}x${s}.png`,
+                width: s,
+                height: s,
+            })),
             locale: "en-GB",
             type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: sizes.map(
+                (s) => `https://jobby-seven.vercel.app/favicon-${s}x${s}.png`
+            ),
         },
     };
 }
