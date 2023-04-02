@@ -15,30 +15,36 @@ function AuthButton() {
     const router = useRouter();
     const { isLoaded, isSignedIn } = useUser();
 
-    let content: ReactNode = null;
     if (!isLoaded) {
-        content = <span>Loading...</span>;
+        return (
+            <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
+                <span>Loading...</span>
+            </button>
+        );
     } else if (isSignedIn) {
-        content = <SignOutButton signOutCallback={() => router.push("/")} />;
+        return (
+            <SignOutButton signOutCallback={() => router.push("/")}>
+                <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
+                    Sign in
+                </button>
+            </SignOutButton>
+        );
     } else {
-        content = <SignInButton />;
+        return (
+            <SignInButton>
+                <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
+                    Sign in
+                </button>
+            </SignInButton>
+        );
     }
-
-    return (
-        <button className="text-slate-600 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400">
-            {content}
-        </button>
-    );
 }
 
 export function Nav() {
     const [isToggled, setIsToggled] = useState(false);
 
     return (
-        <nav
-            className="flex min-h-[2rem] flex-wrap items-center justify-end gap-2 sm:flex-nowrap sm:gap-5"
-            aria-label="Global"
-        >
+        <>
             <div className="sm:hidden">
                 <NavToggle
                     isToggled={isToggled}
@@ -66,7 +72,7 @@ export function Nav() {
                     </NavListItem>
                 </ol>
             </div>
-        </nav>
+        </>
     );
 }
 

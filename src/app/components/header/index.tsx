@@ -14,7 +14,7 @@ export function Header({
                 className
             )}
         >
-            <div className="container mx-auto flex w-full flex-wrap items-start justify-between">
+            <nav className="container mx-auto flex w-full flex-wrap items-start justify-between">
                 <Link
                     href="/"
                     className=" flex flex-none items-center justify-end gap-1 text-xl font-semibold text-slate-800 dark:text-white"
@@ -28,7 +28,7 @@ export function Header({
                     Jobby
                 </Link>
                 {children}
-            </div>
+            </nav>
         </header>
     );
 }
