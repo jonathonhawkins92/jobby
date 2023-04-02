@@ -16,7 +16,7 @@ const config = {
         defaultLocale: "en",
     },
     images: {
-        domains: ["images.clerk.dev", "cdn.shopify.com"],
+        domains: ["images.clerk.dev", "cdn.shopify.com", "www.docker.com"],
     },
 };
 
