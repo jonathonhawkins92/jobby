@@ -32,7 +32,7 @@ const descriptions = [
 export const description = randomArrayValue(descriptions);
 
 export function generateMetadata(): Metadata {
-    const title = "Jobby - Home";
+    const title = "Jobby";
     return {
         title,
         description,
@@ -78,7 +78,7 @@ export function generateMetadata(): Metadata {
             title,
             description,
             url: "https://jobby-seven.vercel.app/",
-            siteName: "Jobby",
+            siteName: title,
             images: [
                 {
                     url: "https://jobby-seven.vercel.app/favicon-512x512.png",
