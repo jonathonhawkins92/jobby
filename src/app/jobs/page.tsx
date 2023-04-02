@@ -64,16 +64,14 @@ function Job({
     return (
         <article className="rounded-lg border border-slate-200 bg-white p-6 shadow dark:border-slate-700 dark:bg-slate-800 dark:text-white">
             <header className="flex gap-4">
-                <div>
-                    {logo && (
-                        <Image
-                            src={logo}
-                            width={48}
-                            height={48}
-                            alt={`${company} Logo`}
-                        />
-                    )}
-                </div>
+                {logo && (
+                    <Image
+                        src={logo}
+                        width={48}
+                        height={48}
+                        alt={`${company} Logo`}
+                    />
+                )}
                 <div>
                     <h1>{company}</h1>
                     <h2>
@@ -82,7 +80,7 @@ function Job({
                 </div>
                 <div></div>
             </header>
-            <section className="pt-4">
+            <section className="grow pt-4">
                 <ul className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
                         <li

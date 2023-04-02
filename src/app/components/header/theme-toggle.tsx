@@ -11,6 +11,7 @@ type Theme = ObjectValues<typeof THEME>;
 type ThemeLiteral = `${Theme}`;
 
 function getTheme() {
+    if (typeof localStorage === "undefined") return "dark";
     if (
         localStorage.theme === "dark" ||
         (!("theme" in localStorage) &&

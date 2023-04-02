@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import type { PropsWithChildren, ReactNode } from "react";
@@ -11,13 +12,14 @@ function NavListItem({ children }: PropsWithChildren) {
 }
 
 function AuthButton() {
+    const router = useRouter();
     const { isLoaded, isSignedIn } = useUser();
 
     let content: ReactNode = null;
     if (!isLoaded) {
         content = <span>Loading...</span>;
     } else if (isSignedIn) {
-        content = <SignOutButton />;
+        content = <SignOutButton signOutCallback={() => router.push("/")} />;
     } else {
         content = <SignInButton />;
     }

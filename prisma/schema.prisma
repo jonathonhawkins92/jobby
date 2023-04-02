@@ -22,8 +22,8 @@ model Company {
     // data
     logoUrl      String?       @db.VarChar(255)
     name         String        @db.VarChar(255)
-    description  String?       @db.VarChar(255)
-    about        String?       @db.VarChar(255)
+    description  String?       @db.LongText()
+    about        String?       @db.LongText()
     industry     String?       @db.VarChar(255)
     job          Job[]
     applications Application[]

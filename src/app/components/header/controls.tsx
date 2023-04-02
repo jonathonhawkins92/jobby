@@ -1,10 +1,12 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { Nav } from "./nav";
 import { ThemeToggle } from "./theme-toggle";
 
 function UserAvatar() {
+    const router = useRouter();
     const { user } = useUser();
 
     return (
@@ -15,6 +17,13 @@ function UserAvatar() {
                 height={32}
                 alt="Profile"
                 className="rounded-full"
+                onClick={
+                    user?.username === "jonathonhawkins92"
+                        ? () => {
+                              router.push("/admin");
+                          }
+                        : undefined
+                }
             />
         </div>
     );
