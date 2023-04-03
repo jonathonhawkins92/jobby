@@ -15,7 +15,7 @@ const shapes = {
     round: `rounded-full`,
 } as const;
 
-export default function Button({
+export function Button({
     type = "button",
     variant = "flat",
     shape = "square",
@@ -31,7 +31,7 @@ export default function Button({
             {...props}
             type={type}
             className={clsx(variants[variant], shapes[shape], className)}
-        ></button>
+        />
     );
 }
 

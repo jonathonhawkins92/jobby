@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
-import Button from "~/components/button";
+import { Button } from "~/components/button";
 
 export function UserAvatar() {
     const router = useRouter();

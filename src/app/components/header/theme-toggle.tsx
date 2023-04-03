@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-import Button from "~/components/button";
+import { Button } from "~/components/button";
 
 const cookies = new Cookies();
 
