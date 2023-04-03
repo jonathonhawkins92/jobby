@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const descriptions = [
+export const descriptions = [
     "For when everything goes to 💩 and you need a new job.",
     "For when it all goes down the swanny 💩.",
     "Oh 💩 time for a new job!",
@@ -29,10 +29,10 @@ const descriptions = [
     "When your job is 💩, it's easy to feel hopeless. But remember, every ending is a new beginning. Let's find you a fresh start.",
     "Don't let a 💩 job stink up your life. It's time to clear the air and find a job that brings you joy.",
 ];
-export const description = randomArrayValue(descriptions);
 
 export function generateMetadata(): Metadata {
     const title = "Jobby";
+    const description = randomArrayValue(descriptions);
     return {
         title,
         description,

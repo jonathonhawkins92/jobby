@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { description } from "./layout";
+import { descriptions } from "./layout";
 import { SignInPrompt } from "./components/landing-signin";
+import { randomArrayValue } from "~/utils/array";
 
 export default function Home() {
     return (
@@ -9,7 +10,7 @@ export default function Home() {
                 <p>Welcome to Jobby</p>
             </h1>
             <h2 className="text-lg leading-8 text-slate-800 dark:text-white">
-                <p>{description}</p>
+                <p>{randomArrayValue(descriptions)}</p>
             </h2>
             <SignInPrompt />
             <div className="flex items-center justify-center gap-x-3">
