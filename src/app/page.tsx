@@ -2,6 +2,7 @@ import Link from "next/link";
 import { descriptions } from "./layout";
 import { SignInPrompt } from "./components/landing-signin";
 import { randomArrayValue } from "~/utils/array";
+import Button from "~/components/button";
 
 export default function Home() {
     return (
@@ -14,17 +15,11 @@ export default function Home() {
             </h2>
             <SignInPrompt />
             <div className="flex items-center justify-center gap-x-3">
-                <Link
-                    href="/jobs"
-                    className="rounded-md border bg-white px-3 py-1 align-middle text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-slate-800"
-                >
-                    Jobs
+                <Link href="/jobs">
+                    <Button>Jobs</Button>
                 </Link>
-                <Link
-                    href="/companies"
-                    className="rounded-md border bg-white px-3 py-1 align-middle text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-slate-800"
-                >
-                    Companies
+                <Link href="/companies">
+                    <Button>Companies</Button>
                 </Link>
             </div>
         </div>
