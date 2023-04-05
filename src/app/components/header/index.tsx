@@ -17,7 +17,7 @@ export function Header({
             <nav className="container mx-auto flex w-full flex-wrap items-start justify-between">
                 <Link
                     href="/"
-                    className=" flex flex-none items-center justify-end gap-1 text-xl font-semibold text-slate-700 dark:text-slate-200"
+                    className="flex flex-none items-end gap-1 text-xl font-medium text-slate-700 dark:text-slate-200"
                 >
                     <Image
                         src="/logo.webp"

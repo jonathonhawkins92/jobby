@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { currentUser } from "@clerk/nextjs/app-beta";
-import { CompanyCreationModal } from "./components/modal/company/create";
-import type { Company } from "@prisma/client";
+import { Modal as CompanyAndLocationModal } from "./components/modal/companyAndLocation";
 import { prisma } from "prisma/db";
 
 export const metadata: Metadata = {
@@ -22,26 +21,26 @@ async function getCompanies() {
 export default async function Companies() {
     const user = await currentUser();
 
-    // const companies = await getCompanies();
+    const companies = await getCompanies();
 
-    // console.log(companies);
+    console.log(companies);
 
     return (
         <>
-            <header className="flex flex-none justify-between border-b-[1px] border-slate-200 p-2 dark:border-slate-700">
-                <h1 className="font-bold ">Companies</h1>
+            <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4  dark:border-slate-700">
+                <h1>Companies</h1>
                 {user?.username === "jonathonhawkins92" && (
-                    <CompanyCreationModal />
+                    <CompanyAndLocationModal />
                 )}
             </header>
-            <section className="grow overflow-y-auto bg-pink-500/20">
-                {/* <ul>
+            <section className="grow overflow-y-auto ">
+                <ul>
                     {companies.map((c) => (
                         <h1 key={c.id} className="text-xl">
                             {c.name}
                         </h1>
                     ))}
-                </ul> */}
+                </ul>
             </section>
         </>
     );

@@ -13,7 +13,7 @@ export const Label = forwardRef<HTMLLabelElement, Props>(function Label(
             {...props}
             ref={ref}
             className={clsx(
-                "block w-full text-left text-sm font-medium text-slate-700 dark:text-slate-200",
+                "block w-full text-left text-sm font-light  text-black dark:text-white",
                 className
             )}
         />

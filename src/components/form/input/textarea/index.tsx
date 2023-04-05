@@ -12,7 +12,8 @@ export const TextareaInput = forwardRef<HTMLTextAreaElement, Props>(
                 ref={ref}
                 rows={4}
                 className={clsx(
-                    "block min-h-[2.625rem] w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder-slate-400 dark:focus:border-blue-500 dark:focus:ring-blue-500",
+                    "block w-full rounded-md  border border-slate-200 bg-white p-2.5 text-sm font-light text-black placeholder-slate-400 placeholder:font-medium  placeholder:italic dark:border-slate-700  dark:bg-slate-900/70 dark:text-white  dark:placeholder-slate-600",
+                    "min-h-[2.625rem]",
                     className
                 )}
             />
