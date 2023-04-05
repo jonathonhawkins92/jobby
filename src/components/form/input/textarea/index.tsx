@@ -12,7 +12,7 @@ export const TextareaInput = forwardRef<HTMLTextAreaElement, Props>(
                 ref={ref}
                 rows={4}
                 className={clsx(
-                    "focus input-bg input-bg-interaction border-common input-text placeholder block min-h-[2.625rem] w-full p-2.5",
+                    "focus input-bg input-bg-interaction  border-common input-text placeholder block min-h-[2.625rem] w-full p-2.5",
                     className
                 )}
             />

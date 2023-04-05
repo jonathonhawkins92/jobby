@@ -4,7 +4,7 @@
 
 @layer components {
     .focus {
-        @apply transition-all focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-slate-200 dark:focus:ring-offset-slate-800;
+        @apply transition focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-slate-200 dark:focus:ring-offset-slate-800;
     }
     .placeholder {
         @apply placeholder-slate-400 placeholder:font-light placeholder:italic  dark:placeholder-slate-600 dark:placeholder:font-medium;
@@ -18,11 +18,11 @@
     .input-button {
         @apply cursor-pointer disabled:cursor-default;
     }
-    .border-common {
-        @apply rounded-md border border-slate-200 dark:border-slate-700;
-    }
     .border-common-color {
         @apply border-slate-200 dark:border-slate-700;
+    }
+    .border-common {
+        @apply border-common-color rounded-md border;
     }
     .input-bg {
         @apply bg-slate-50/40 disabled:bg-slate-200 dark:bg-slate-800/40 dark:disabled:bg-slate-700;

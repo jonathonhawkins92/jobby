@@ -15,10 +15,10 @@ export default function Home() {
             </h2>
             <SignInPrompt />
             <div className="flex items-center justify-center gap-x-3">
-                <Link href="/jobs">
+                <Link tabIndex={-1} href="/jobs">
                     <Button>Jobs</Button>
                 </Link>
-                <Link href="/companies">
+                <Link tabIndex={-1} href="/companies">
                     <Button>Companies</Button>
                 </Link>
             </div>
