@@ -1,23 +1,23 @@
 "use client";
 
-import { Button } from "~/components/button";
-import { Dialog } from "~/components/dialog";
 import { AddIcon } from "~/components/icons/add";
-import { useToggle } from "~/hooks/useToggle";
-import { useRouter } from "next/navigation";
-import { useMemo, useState, useTransition } from "react";
-import type { PropsWithChildren } from "react";
-import type { Location } from "~/app/api/location/model";
-import { defaultCompanyAndLocation } from "~/app/api/companyAndLocation/model";
-import type { CompanyAndLocation } from "~/app/api/companyAndLocation/model";
-import { Fields as CompanyFields } from "../company/index";
-import { useForm, FormProvider } from "react-hook-form";
+import { Button } from "~/components/button";
 import { CrossMarkIcon } from "~/components/icons/crossMark";
-import { Label } from "~/components/form/label";
-import { Form as LocationForm } from "../location/index";
-import { Submit } from "~/components/form/input/submit";
+import { defaultCompanyAndLocation } from "~/app/api/companyAndLocation/model";
+import { Dialog, DialogClickBarrier } from "~/components/dialog";
 import { EditIcon } from "~/components/icons/edit";
+import { Fields as CompanyFields } from "../company/index";
+import { Form as LocationForm } from "../location/index";
+import { Label } from "~/components/form/label";
+import { Submit } from "~/components/form/input/submit";
+import { useForm, FormProvider } from "react-hook-form";
+import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { useToggle } from "~/hooks/useToggle";
 import clsx from "clsx";
+import type { CompanyAndLocation } from "~/app/api/companyAndLocation/model";
+import type { Location } from "~/app/api/location/model";
+import type { PropsWithChildren } from "react";
 
 function ChipButton({
     children,
@@ -49,7 +49,7 @@ function Chip({
     isDisabled?: boolean;
 }>) {
     return (
-        <div className="border-common input-bg input-text flex items-center gap-0.5 p-0.5 align-middle">
+        <div className="border-common input-bg input-text flex items-center gap-0.5 bg-white p-0.5 align-middle dark:bg-black">
             <ChipButton onClick={() => onEdit()} isDisabled={isDisabled}>
                 <EditIcon />
             </ChipButton>
@@ -131,12 +131,10 @@ function LocationField({
                 </ol>
             </div>
             {isOpen && (
-                <Dialog onClick={handleClose}>
-                    <div
-                        className="max-h-screen rounded-lg border border-slate-200 bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white sm:max-w-[50%]"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
+                <Dialog onMouseDown={handleClose} onTouchStart={handleClose}>
+                    <DialogClickBarrier
+                        isPretty
+                        className="rounded-md shadow sm:max-w-[50%]"
                     >
                         <LocationForm
                             isDisabled={isDisabled}
@@ -154,13 +152,12 @@ function LocationField({
                             country={country}
                             region={region}
                         />
-                    </div>
+                    </DialogClickBarrier>
                 </Dialog>
             )}
         </>
     );
 }
-
 function Form({
     onClose,
     isDisabled = false,
@@ -223,7 +220,7 @@ function Form({
 
     return (
         <form
-            className="flex max-h-screen flex-col"
+            className="border-common flex max-h-screen flex-col bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white"
             onSubmit={(e) => {
                 e.preventDefault();
                 void handleSubmit(onSubmit)(e);
@@ -299,10 +296,6 @@ export function Modal() {
 
     const isMutating = isFetching || isPending;
 
-    function stopPropagation(e: { stopPropagation: () => void }) {
-        e.stopPropagation();
-    }
-
     return (
         <>
             <Button
@@ -314,10 +307,9 @@ export function Modal() {
             </Button>
             {isOpen && (
                 <Dialog onMouseDown={onClose} onTouchStart={onClose}>
-                    <div
-                        className="rounded-md border border-slate-200 bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white sm:max-w-[50%]"
-                        onMouseDown={stopPropagation}
-                        onTouchStart={stopPropagation}
+                    <DialogClickBarrier
+                        isPretty
+                        className="rounded-md shadow sm:max-w-[50%]"
                     >
                         <Form
                             onClose={onClose}
@@ -326,7 +318,7 @@ export function Modal() {
                                 void handleSubmit(companyAndLocation)
                             }
                         />
-                    </div>
+                    </DialogClickBarrier>
                 </Dialog>
             )}
         </>

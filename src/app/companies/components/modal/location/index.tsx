@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "~/components/button";
-import { Dialog } from "~/components/dialog";
 import { AddIcon } from "~/components/icons/add";
-import { useToggle } from "~/hooks/useToggle";
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
-import { TextInput } from "~/components/form/input/text";
-import { Label } from "~/components/form/label";
+import { Button } from "~/components/button";
 import { CrossMarkIcon } from "~/components/icons/crossMark";
-import type { Location } from "~/app/api/location/model";
 import { defaultLocation } from "~/app/api/location/model";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { Dialog } from "~/components/dialog";
+import { Label } from "~/components/form/label";
 import { Submit } from "~/components/form/input/submit";
+import { TextInput } from "~/components/form/input/text";
+import { useEffect, useState, useTransition } from "react";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useToggle } from "~/hooks/useToggle";
+import type { Location } from "~/app/api/location/model";
 
 export function Fields({ isDisabled }: { isDisabled: boolean }) {
     const { register, setFocus } = useFormContext<Location>();
@@ -101,7 +101,7 @@ export function Form({
 
     return (
         <form
-            className="flex max-h-screen flex-col"
+            className="border-common flex max-h-screen flex-col bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white"
             onSubmit={(e) => {
                 e.preventDefault();
                 void methods.handleSubmit(onSubmit)(e);
