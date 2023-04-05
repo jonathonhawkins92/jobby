@@ -3,9 +3,25 @@ import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 
 import { getAuth } from "@clerk/nextjs/server";
-import { companySchema } from "./model";
+import { companySchema } from "../model";
 
-export async function POST(request: NextRequest) {
+export async function GET(
+    _request: NextRequest,
+    { params }: { params: { id: string } }
+) {
+    const companies = await prisma.company.findFirst({
+        where: {
+            id: params.id,
+        },
+    });
+
+    return NextResponse.json({ data: companies });
+}
+
+export async function PATCH(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     const { userId } = getAuth(request);
     if (!userId) {
         return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
@@ -22,7 +38,7 @@ export async function POST(request: NextRequest) {
         });
     }
 
-    const company = await prisma.company.create({
+    await prisma.company.update({
         data: {
             ownedBy: userId,
             logoUrl: result.data.logo,
@@ -31,16 +47,13 @@ export async function POST(request: NextRequest) {
             about: result.data.about,
             industry: result.data.industry,
         },
+        where: {
+            id: params.id,
+        },
     });
 
-    return new NextResponse(JSON.stringify({ id: company.id }), {
+    return new NextResponse(undefined, {
         status: 201,
     });
-}
-
-export async function GET() {
-    const companies = await prisma.company.findMany();
-
-    return NextResponse.json({ data: companies });
 }
 

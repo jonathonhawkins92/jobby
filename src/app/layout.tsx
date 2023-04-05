@@ -104,7 +104,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className="dark  dark:bg-gray-900">
+        <html lang="en" className="dark dark:bg-gray-900">
             <body
                 className={clsx(
                     " overflow-hidden dark:bg-gray-900",
@@ -132,15 +132,13 @@ export default function RootLayout({
                     />
                 </div>
                 <ClerkProvider>
-                    <div className="flex h-screen flex-col ">
+                    <div className="flex h-screen flex-col">
                         <Header className="grow-0">
                             <Controls />
                         </Header>
-                        <main className="grow overflow-y-auto">
-                            <div className="container mx-auto p-4">
-                                {children}
-                            </div>
-                        </main>
+                        <div className="container mx-auto flex grow flex-col overflow-y-auto text-center text-slate-800 dark:text-white">
+                            {children}
+                        </div>
                     </div>
                 </ClerkProvider>
                 <div

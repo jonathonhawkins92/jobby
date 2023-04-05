@@ -105,19 +105,39 @@ export default async function Jobs() {
     const jobs = await getJobs();
 
     return (
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {jobs.map((j) => (
-                <li key={j.id} className="grow sm:grow-0">
-                    <Job
-                        logo={j.logo}
-                        company={j.company}
-                        title={j.title}
-                        salary={j.salary}
-                        tags={j.tags}
-                    />
-                </li>
-            ))}
-        </ul>
+        <div className="p-4">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                    ...jobs,
+                ].map((j) => (
+                    <li key={j.id} className="grow sm:grow-0">
+                        <Job
+                            logo={j.logo}
+                            company={j.company}
+                            title={j.title}
+                            salary={j.salary}
+                            tags={j.tags}
+                        />
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 }
 
