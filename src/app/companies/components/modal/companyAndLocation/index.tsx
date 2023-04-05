@@ -17,17 +17,21 @@ import { Label } from "~/components/form/label";
 import { Form as LocationForm } from "../location/index";
 import { Submit } from "~/components/form/input/submit";
 import { EditIcon } from "~/components/icons/edit";
+import clsx from "clsx";
 
 function ChipButton({
     children,
     onClick,
+    isDisabled = false,
 }: PropsWithChildren<{
     onClick: () => void;
+    isDisabled?: boolean;
 }>) {
     return (
         <button
-            className="cursor-pointer rounded-[5px] px-1 py-1 hover:bg-slate-800"
+            className="focus input-button input-text input-bg input-bg-interaction rounded-[5px] p-1"
             onClick={() => onClick()}
+            disabled={isDisabled}
         >
             {children}
         </button>
@@ -38,19 +42,26 @@ function Chip({
     children,
     onRemove,
     onEdit,
+    isDisabled = false,
 }: PropsWithChildren<{
     onRemove: () => void;
     onEdit: () => void;
+    isDisabled?: boolean;
 }>) {
     return (
-        <div className="flex items-center gap-0.5 rounded-md border bg-white p-0.5 align-middle text-slate-700 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:focus:ring-offset-slate-800">
-            <ChipButton onClick={() => onEdit()}>
+        <div className="border-common input-bg input-text flex items-center gap-0.5 p-0.5 align-middle">
+            <ChipButton onClick={() => onEdit()} isDisabled={isDisabled}>
                 <EditIcon />
             </ChipButton>
-            <span className="border-x-[1px] border-slate-300 px-2 text-sm font-light text-black dark:border-slate-700 dark:text-white">
+            <span
+                className={clsx(
+                    "border-common-color input-text border-x-[1px] px-2",
+                    isDisabled && "input-text-disabled"
+                )}
+            >
                 {children}
             </span>
-            <ChipButton onClick={() => onRemove()}>
+            <ChipButton onClick={() => onRemove()} isDisabled={isDisabled}>
                 <CrossMarkIcon />
             </ChipButton>
         </div>
@@ -95,7 +106,11 @@ function LocationField({
         <>
             <Label>Locations</Label>
             <div className="inline-flex flex-wrap gap-4">
-                <Button variant="flatIcon" onClick={() => handleOpen(true)}>
+                <Button
+                    disabled={isDisabled}
+                    variant="flatIcon"
+                    onClick={() => handleOpen(true)}
+                >
                     <AddIcon />
                 </Button>
                 <ol className="inline-flex flex-wrap gap-4">
@@ -107,6 +122,7 @@ function LocationField({
                                     handleOpen(true);
                                 }}
                                 onRemove={() => onLocationRemove(index)}
+                                isDisabled={isDisabled}
                             >
                                 {name}
                             </Chip>
@@ -163,7 +179,7 @@ function Form({
     const methods = useForm<CompanyAndLocation>({
         defaultValues: defaultCompanyAndLocation,
     });
-    const { getValues, setValue, handleSubmit } = methods;
+    const { getValues, setValue, handleSubmit, setFocus } = methods;
 
     function handleLocationAddition(location: Location, index?: number) {
         const locations = getValues("location");
@@ -174,6 +190,7 @@ function Form({
         }
         setValue("location", locations);
         setLocationNames(locations.map((l) => l.name));
+        setFocus("name");
     }
 
     function handleLocationRemoval(index: number) {
@@ -189,6 +206,7 @@ function Form({
 
     function handleLocationDeselect() {
         setSelectedLocationIndex(undefined);
+        setFocus("name");
     }
 
     const selectedLocation = useMemo(() => {
@@ -213,7 +231,11 @@ function Form({
         >
             <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4  dark:border-slate-700">
                 <h1>New Company</h1>
-                <Button variant="flatIcon" onClick={() => onClose()}>
+                <Button
+                    disabled={isDisabled}
+                    variant="flatIcon"
+                    onClick={() => onClose()}
+                >
                     <CrossMarkIcon />
                 </Button>
             </header>
@@ -283,7 +305,11 @@ export function Modal() {
 
     return (
         <>
-            <Button variant="flatIcon" onClick={() => handleOpen(true)}>
+            <Button
+                disabled={isMutating}
+                variant="flatIcon"
+                onClick={() => handleOpen(true)}
+            >
                 <AddIcon />
             </Button>
             {isOpen && (

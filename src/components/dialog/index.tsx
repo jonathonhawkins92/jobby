@@ -16,7 +16,7 @@ export const Dialog = forwardRef<HTMLDialogElement, Props>(function Dialog(
             {...props}
             ref={ref}
             className={clsx(
-                "fixed inset-0 z-50 flex h-screen w-screen items-center justify-center  bg-slate-900/40 dark:bg-slate-900/40",
+                "fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-slate-900/40",
                 className
             )}
         />,

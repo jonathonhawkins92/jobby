@@ -5,7 +5,7 @@ import { Dialog } from "~/components/dialog";
 import { AddIcon } from "~/components/icons/add";
 import { useToggle } from "~/hooks/useToggle";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { TextInput } from "~/components/form/input/text";
 import { TextareaInput } from "~/components/form/input/textarea";
 import { Label } from "~/components/form/label";
@@ -19,7 +19,13 @@ export function Fields({ isDisabled }: { isDisabled: boolean }) {
     const {
         register,
         formState: { errors },
+        setFocus,
     } = useFormContext<Company>();
+
+    useEffect(() => {
+        setFocus("name");
+    }, [setFocus]);
+
     return (
         <>
             <Label htmlFor="name">Name</Label>

@@ -13,7 +13,7 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
             {...props}
             ref={ref}
             className={clsx(
-                "block w-full rounded-md  border border-slate-200 bg-white p-2.5 text-sm font-light text-black placeholder-slate-400 placeholder:font-medium  placeholder:italic dark:border-slate-700  dark:bg-slate-900/70 dark:text-white  dark:placeholder-slate-600",
+                "focus input-bg input-bg-interaction border-common input-text placeholder block w-full p-2.5",
                 className
             )}
             type="text"

@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .focus {
+        @apply transition-all focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-slate-200 dark:focus:ring-offset-slate-800;
+    }
+    .placeholder {
+        @apply placeholder-slate-400 placeholder:font-light placeholder:italic  dark:placeholder-slate-600 dark:placeholder:font-medium;
+    }
+    .input-text {
+        @apply text-sm font-medium text-black disabled:text-gray-500 dark:font-light dark:text-white dark:disabled:text-gray-500;
+    }
+    .input-text-disabled {
+        @apply text-gray-500  dark:text-gray-500;
+    }
+    .input-button {
+        @apply cursor-pointer disabled:cursor-default;
+    }
+    .border-common {
+        @apply rounded-md border border-slate-200 dark:border-slate-700;
+    }
+    .border-common-color {
+        @apply border-slate-200 dark:border-slate-700;
+    }
+    .input-bg {
+        @apply bg-slate-50/40 disabled:bg-slate-200 dark:bg-slate-800/40 dark:disabled:bg-slate-700;
+    }
+    .input-bg-interaction {
+        @apply hover:bg-slate-50/10 focus:bg-slate-50/10 disabled:hover:bg-slate-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800 dark:disabled:hover:bg-slate-700;
+    }
+}
+

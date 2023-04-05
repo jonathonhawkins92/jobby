@@ -5,7 +5,7 @@ import { Dialog } from "~/components/dialog";
 import { AddIcon } from "~/components/icons/add";
 import { useToggle } from "~/hooks/useToggle";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { TextInput } from "~/components/form/input/text";
 import { Label } from "~/components/form/label";
 import { CrossMarkIcon } from "~/components/icons/crossMark";
@@ -15,12 +15,18 @@ import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { Submit } from "~/components/form/input/submit";
 
 export function Fields({ isDisabled }: { isDisabled: boolean }) {
-    const { register } = useFormContext<Location>();
+    const { register, setFocus } = useFormContext<Location>();
+
+    useEffect(() => {
+        setFocus("name");
+    }, [setFocus]);
+
     return (
         <>
             <Label htmlFor="name">Name</Label>
             <TextInput
                 placeholder="The name of the location"
+                title="The name of the location"
                 {...register("name", {
                     required: false,
                     disabled: isDisabled,
@@ -45,7 +51,9 @@ export function Fields({ isDisabled }: { isDisabled: boolean }) {
             <Label htmlFor="region">Region</Label>
             <TextInput
                 placeholder="Which region is it in?"
-                {...register("region")}
+                {...register("region", {
+                    disabled: isDisabled,
+                })}
             />
             <Label htmlFor="country">Country</Label>
             <TextInput
@@ -101,7 +109,11 @@ export function Form({
         >
             <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
                 <h1>Location</h1>
-                <Button variant="flatIcon" onClick={() => onClose()}>
+                <Button
+                    disabled={isDisabled}
+                    variant="flatIcon"
+                    onClick={() => onClose()}
+                >
                     <CrossMarkIcon />
                 </Button>
             </header>
@@ -157,7 +169,11 @@ export function Modal() {
 
     return (
         <>
-            <Button variant="flatIcon" onClick={() => handleOpen(true)}>
+            <Button
+                disabled={isMutating}
+                variant="flatIcon"
+                onClick={() => handleOpen(true)}
+            >
                 <AddIcon />
             </Button>
             {isOpen && (
