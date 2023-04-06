@@ -9,17 +9,18 @@ export async function POST(request: NextRequest) {
     try {
         const { userId } = getAuth(request);
         if (!userId) {
-            return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
+            return new NextResponse("Not Authorized", {
                 status: 401,
             });
         }
 
         const input: unknown = await request.json();
+
         const result = await companyAndLocationSchema.safeParseAsync(input);
 
         if (!result.success) {
             console.log(result.error);
-            return new NextResponse(undefined, {
+            return new NextResponse("Invalid request", {
                 status: 400,
             });
         }
