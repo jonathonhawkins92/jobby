@@ -1,6 +1,5 @@
 "use client";
 
-import { AddIcon } from "~/components/icons/add";
 import { Button } from "~/components/button";
 import { CrossMarkIcon } from "~/components/icons/crossMark";
 import { defaultLocation } from "~/app/api/location/model";
@@ -129,7 +128,11 @@ export function Form({
     );
 }
 
-export function Modal() {
+export function Modal({
+    ExternalButton = Button,
+}: {
+    ExternalButton?: typeof Button;
+}) {
     const [isLocationModalOpen, setIsLocationModalOpen] = useToggle();
 
     function onLocationModalClose() {
@@ -166,13 +169,10 @@ export function Modal() {
 
     return (
         <>
-            <Button
+            <ExternalButton
                 disabled={isMutating}
-                variant="flatIcon"
                 onClick={() => setIsLocationModalOpen(true)}
-            >
-                <AddIcon />
-            </Button>
+            />
             {isLocationModalOpen && (
                 <Dialog
                     onMouseDown={onLocationModalClose}
@@ -193,5 +193,17 @@ export function Modal() {
             )}
         </>
     );
+}
+
+export function ServerControlledModal({
+    ExternalButton,
+}: {
+    ExternalButton: null | typeof Button;
+}) {
+    if (!ExternalButton) {
+        return null;
+    }
+
+    return <Modal ExternalButton={ExternalButton} />;
 }
 

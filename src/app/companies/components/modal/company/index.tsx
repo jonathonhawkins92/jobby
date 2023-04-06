@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "~/components/button";
-import { Dialog } from "~/components/dialog";
-import { AddIcon } from "~/components/icons/add";
+import { Dialog, DialogClickBarrier } from "~/components/dialog";
 import { useToggle } from "~/hooks/useToggle";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import type { PropsWithChildren } from "react";
 import { TextInput } from "~/components/form/input/text";
 import { TextareaInput } from "~/components/form/input/textarea";
 import { Label } from "~/components/form/label";
@@ -81,15 +81,29 @@ export function Form({
     onClose,
     isDisabled = false,
     onSubmit,
+    titleText = "Create Company",
     submitButtonText = "Create",
+    name,
+    logo,
+    description,
+    about,
+    industry,
 }: {
     onClose: () => void;
     isDisabled?: boolean;
     onSubmit: (company: Company) => void;
+    titleText?: string;
     submitButtonText?: string;
-}) {
+} & Partial<Company>) {
     const methods = useForm<Company>({
-        defaultValues: defaultCompany,
+        defaultValues: {
+            ...defaultCompany,
+            name,
+            logo,
+            description,
+            about,
+            industry,
+        },
     });
 
     return (
@@ -101,7 +115,7 @@ export function Form({
             }}
         >
             <header className="flex justify-between p-2">
-                <h1>New Company</h1>
+                <h1>{titleText}</h1>
                 <Button variant="flatIcon" onClick={() => onClose()}>
                     <CrossMarkIcon />
                 </Button>
@@ -118,7 +132,19 @@ export function Form({
     );
 }
 
-export function Modal() {
+export function Modal({
+    children,
+    name,
+    logo,
+    description,
+    about,
+    industry,
+    id,
+}: PropsWithChildren<
+    {
+        id?: string;
+    } & Partial<Company>
+>) {
     const [isOpen, handleOpen] = useToggle();
 
     function onClose() {
@@ -131,8 +157,8 @@ export function Modal() {
 
     async function handleSubmit(data: Company) {
         setIsFetching(true);
-        await fetch("/api/company", {
-            method: "POST",
+        await fetch(id ? `/api/company/${id}` : "/api/company", {
+            method: id ? "PUT" : "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -149,28 +175,27 @@ export function Modal() {
 
     const isMutating = isFetching || isPending;
 
-    function stopPropagation(e: { stopPropagation: () => void }) {
-        e.stopPropagation();
-    }
-
     return (
         <>
             <Button variant="flatIcon" onClick={() => handleOpen(true)}>
-                <AddIcon />
+                {children}
             </Button>
             {isOpen && (
                 <Dialog onMouseDown={onClose} onTouchStart={onClose}>
-                    <div
-                        className="rounded-md border border-slate-200 bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white sm:max-w-[50%]"
-                        onMouseDown={stopPropagation}
-                        onTouchStart={stopPropagation}
-                    >
+                    <DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
                         <Form
                             onClose={onClose}
                             isDisabled={isMutating}
                             onSubmit={(company) => void handleSubmit(company)}
+                            name={name}
+                            logo={logo}
+                            description={description}
+                            about={about}
+                            industry={industry}
+                            titleText={id ? "Edit Company" : "New Company"}
+                            submitButtonText={id ? "Update" : "Create"}
                         />
-                    </div>
+                    </DialogClickBarrier>
                 </Dialog>
             )}
         </>

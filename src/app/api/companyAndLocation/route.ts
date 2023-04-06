@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
         const result = await companyAndLocationSchema.safeParseAsync(input);
 
         if (!result.success) {
-            console.log(result.error);
             return new NextResponse("Invalid request", {
                 status: 400,
             });
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
         });
     } catch (e) {
         console.error(e);
-        return new NextResponse(undefined, {
+        return new NextResponse("Server Error", {
             status: 500,
         });
     }

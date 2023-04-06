@@ -11,7 +11,7 @@ import { Form as LocationForm } from "../location/index";
 import { Label } from "~/components/form/label";
 import { Submit } from "~/components/form/input/submit";
 import { useForm, FormProvider } from "react-hook-form";
-import { useMemo, useState, useTransition } from "react";
+import React, { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useToggle } from "~/hooks/useToggle";
 import clsx from "clsx";
@@ -164,7 +164,7 @@ function Form({
     );
 }
 
-export function Modal() {
+export function Modal({ children }: PropsWithChildren) {
     const [isCompanyModalOpen, setIsCompanyModalOpen] = useToggle(false);
 
     function handleCompanyModalClose() {
@@ -249,7 +249,7 @@ export function Modal() {
                 variant="flatIcon"
                 onClick={() => setIsCompanyModalOpen(true)}
             >
-                <AddIcon />
+                {children}
             </Button>
             {isCompanyModalOpen && (
                 <Dialog
