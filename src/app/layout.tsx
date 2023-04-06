@@ -1,9 +1,10 @@
 import "./global.css";
+import type { PropsWithChildren } from "react";
+import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Header } from "./components/header";
 import { Controls } from "./components/header/controls";
 import { Inter } from "next/font/google";
 import clsx from "clsx";
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { randomArrayValue } from "~/utils/array";
 import type { Metadata } from "next";
 
@@ -98,11 +99,7 @@ export function generateMetadata(): Metadata {
     };
 }
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en" className="dark antialiased dark:bg-gray-900">
             <body
