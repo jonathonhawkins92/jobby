@@ -15,7 +15,7 @@
 		"@prisma/client": "^4.12.0",
 		"@tanstack/react-query": "^4.28.0",
 		"clsx": "^1.2.1",
-		"next": "13.2.5-canary.34",
+		"next": "13.2.4",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-hook-form": "^7.43.9",
