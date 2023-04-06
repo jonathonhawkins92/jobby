@@ -8,8 +8,7 @@ const publicPaths = [
     "/sign-in*",
     "/sign-up*",
     "/jobs",
-    "/companies",
-    "/companies/*",
+    "/companies*",
 ];
 
 const isPublic = (path: string) => {
