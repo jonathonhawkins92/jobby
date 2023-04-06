@@ -102,9 +102,9 @@ export function Form({
     return (
         <form
             className="border-common flex max-h-screen flex-col"
-            onSubmit={(e) => {
-                e.preventDefault();
-                void methods.handleSubmit(onSubmit)(e);
+            onSubmit={(event) => {
+                event.preventDefault();
+                void methods.handleSubmit(onSubmit)(event);
             }}
         >
             <header className="border-common-color flex items-end justify-between border-b-[1px] p-4">
@@ -130,10 +130,10 @@ export function Form({
 }
 
 export function Modal() {
-    const [isOpen, handleOpen] = useToggle();
+    const [isLocationModalOpen, setIsLocationModalOpen] = useToggle();
 
-    function onClose() {
-        handleOpen(false);
+    function onLocationModalClose() {
+        setIsLocationModalOpen(false);
     }
 
     const router = useRouter();
@@ -158,7 +158,7 @@ export function Modal() {
             router.refresh();
         });
 
-        onClose();
+        onLocationModalClose();
     }
 
     const isMutating = isFetching || isPending;
@@ -172,19 +172,22 @@ export function Modal() {
             <Button
                 disabled={isMutating}
                 variant="flatIcon"
-                onClick={() => handleOpen(true)}
+                onClick={() => setIsLocationModalOpen(true)}
             >
                 <AddIcon />
             </Button>
-            {isOpen && (
-                <Dialog onMouseDown={onClose} onTouchStart={onClose}>
+            {isLocationModalOpen && (
+                <Dialog
+                    onMouseDown={onLocationModalClose}
+                    onTouchStart={onLocationModalClose}
+                >
                     <div
                         className="rounded-md border border-slate-200 bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white sm:max-w-[50%]"
                         onMouseDown={stopPropagation}
                         onTouchStart={stopPropagation}
                     >
                         <Form
-                            onClose={onClose}
+                            onClose={onLocationModalClose}
                             isDisabled={isMutating}
                             onSubmit={(location) => void handleSubmit(location)}
                         />

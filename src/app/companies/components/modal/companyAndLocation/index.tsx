@@ -49,7 +49,7 @@ function Chip({
     isDisabled?: boolean;
 }>) {
     return (
-        <div className="border-common input-bg input-text flex items-center gap-0.5 bg-white p-0.5 align-middle dark:bg-black">
+        <div className="border-common input-bg input-text flex items-center gap-0.5 p-0.5 align-middle ">
             <ChipButton onClick={() => onEdit()} isDisabled={isDisabled}>
                 <EditIcon />
             </ChipButton>
@@ -95,10 +95,10 @@ function LocationField({
     selectedIndex?: number;
     onClose: () => void;
 }) {
-    const [isOpen, handleOpen] = useToggle(false);
+    const [isLocationModalOpen, setIsLocationModalOpen] = useToggle(false);
 
-    function handleClose() {
-        handleOpen(false);
+    function handleLocationModalClose() {
+        setIsLocationModalOpen(false);
         onClose();
     }
 
@@ -109,7 +109,7 @@ function LocationField({
                 <Button
                     disabled={isDisabled}
                     variant="flatIcon"
-                    onClick={() => handleOpen(true)}
+                    onClick={() => setIsLocationModalOpen(true)}
                 >
                     <AddIcon />
                 </Button>
@@ -119,7 +119,7 @@ function LocationField({
                             <Chip
                                 onEdit={() => {
                                     onLocationEdit(index);
-                                    handleOpen(true);
+                                    setIsLocationModalOpen(true);
                                 }}
                                 onRemove={() => onLocationRemove(index)}
                                 isDisabled={isDisabled}
@@ -130,16 +130,19 @@ function LocationField({
                     ))}
                 </ol>
             </div>
-            {isOpen && (
-                <Dialog onMouseDown={handleClose} onTouchStart={handleClose}>
+            {isLocationModalOpen && (
+                <Dialog
+                    onMouseDown={handleLocationModalClose}
+                    onTouchStart={handleLocationModalClose}
+                >
                     <DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
                         <LocationForm
                             isDisabled={isDisabled}
                             onSubmit={(location) => {
                                 onSubmit(location, selectedIndex);
-                                handleClose();
+                                handleLocationModalClose();
                             }}
-                            onClose={handleClose}
+                            onClose={handleLocationModalClose}
                             submitButtonText={
                                 selectedIndex !== undefined ? "Update" : "Add"
                             }
@@ -260,10 +263,10 @@ function Form({
 }
 
 export function Modal() {
-    const [isOpen, handleOpen] = useToggle();
+    const [isCompanyModalOpen, setIsCompanyModalOpen] = useToggle(false);
 
-    function onClose() {
-        handleOpen(false);
+    function handleCompanyModalClose() {
+        setIsCompanyModalOpen(false);
     }
 
     const router = useRouter();
@@ -288,7 +291,7 @@ export function Modal() {
             router.refresh();
         });
 
-        onClose();
+        handleCompanyModalClose();
     }
 
     const isMutating = isFetching || isPending;
@@ -298,15 +301,18 @@ export function Modal() {
             <Button
                 disabled={isMutating}
                 variant="flatIcon"
-                onClick={() => handleOpen(true)}
+                onClick={() => setIsCompanyModalOpen(true)}
             >
                 <AddIcon />
             </Button>
-            {isOpen && (
-                <Dialog onMouseDown={onClose} onTouchStart={onClose}>
+            {isCompanyModalOpen && (
+                <Dialog
+                    onMouseDown={handleCompanyModalClose}
+                    onTouchStart={handleCompanyModalClose}
+                >
                     <DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
                         <Form
-                            onClose={onClose}
+                            onClose={handleCompanyModalClose}
                             isDisabled={isMutating}
                             onSubmit={(companyAndLocation) =>
                                 void handleSubmit(companyAndLocation)
