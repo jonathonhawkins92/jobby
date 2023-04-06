@@ -179,7 +179,6 @@ export function Modal() {
 
     async function handleSubmitToServer(data: CompanyAndLocation) {
         setIsFetching(true);
-        // Mutate external data source
         await fetch("/api/companyAndLocation", {
             method: "POST",
             headers: {
@@ -190,8 +189,6 @@ export function Modal() {
         setIsFetching(false);
 
         startTransition(() => {
-            // Refresh the current route and fetch new data from the server without
-            // losing client-side browser or React state.
             router.refresh();
         });
 
