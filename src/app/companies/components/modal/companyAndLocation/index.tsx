@@ -132,10 +132,7 @@ function LocationField({
             </div>
             {isOpen && (
                 <Dialog onMouseDown={handleClose} onTouchStart={handleClose}>
-                    <DialogClickBarrier
-                        isPretty
-                        className="rounded-md shadow sm:max-w-[50%]"
-                    >
+                    <DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
                         <LocationForm
                             isDisabled={isDisabled}
                             onSubmit={(location) => {
@@ -220,13 +217,13 @@ function Form({
 
     return (
         <form
-            className="border-common flex max-h-screen flex-col bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className=" flex max-h-screen flex-col"
             onSubmit={(e) => {
                 e.preventDefault();
                 void handleSubmit(onSubmit)(e);
             }}
         >
-            <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4  dark:border-slate-700">
+            <header className="border-common-color flex items-end justify-between border-b-[1px] p-4">
                 <h1>New Company</h1>
                 <Button
                     disabled={isDisabled}
@@ -255,7 +252,7 @@ function Form({
                     />
                 </FormProvider>
             </article>
-            <footer className="flex justify-end border-t-[1px] border-slate-300 p-4  dark:border-slate-700">
+            <footer className="border-common-color flex justify-end border-t-[1px] p-4">
                 <Submit value={submitButtonText} disabled={isDisabled} />
             </footer>
         </form>
@@ -307,10 +304,7 @@ export function Modal() {
             </Button>
             {isOpen && (
                 <Dialog onMouseDown={onClose} onTouchStart={onClose}>
-                    <DialogClickBarrier
-                        isPretty
-                        className="rounded-md shadow sm:max-w-[50%]"
-                    >
+                    <DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
                         <Form
                             onClose={onClose}
                             isDisabled={isMutating}

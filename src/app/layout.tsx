@@ -104,7 +104,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className="dark dark:bg-gray-900">
+        <html lang="en" className="dark antialiased dark:bg-gray-900">
             <body
                 className={clsx(
                     " overflow-hidden dark:bg-gray-900",
@@ -123,8 +123,8 @@ export default function RootLayout({
 							-translate-x-1/2
 							rotate-[30deg]
 							bg-gradient-to-tr
-							from-[#ff80b5]
-							to-[#9089fc]
+							from-purple-500
+							to-white
 							opacity-30
 							dark:from-white
 							dark:to-blue-500
@@ -151,9 +151,11 @@ export default function RootLayout({
 							aspect-[1155/678]
 							w-[72.1875rem]
 							bg-gradient-to-tr
-							from-[#ff80b5]
-							to-[#9089fc]
+							from-blue-500
+							to-white
 							opacity-30 
+							dark:from-white
+							dark:to-purple-500
 						"
                         style={{
                             clipPath:

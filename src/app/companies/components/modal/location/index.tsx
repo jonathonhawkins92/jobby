@@ -101,13 +101,13 @@ export function Form({
 
     return (
         <form
-            className="border-common flex max-h-screen flex-col bg-white shadow dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="border-common flex max-h-screen flex-col"
             onSubmit={(e) => {
                 e.preventDefault();
                 void methods.handleSubmit(onSubmit)(e);
             }}
         >
-            <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
+            <header className="border-common-color flex items-end justify-between border-b-[1px] p-4">
                 <h1>Location</h1>
                 <Button
                     disabled={isDisabled}
@@ -122,7 +122,7 @@ export function Form({
                     <Fields isDisabled={isDisabled} />
                 </FormProvider>
             </article>
-            <footer className="flex justify-end border-t-[1px] border-slate-300 p-4 dark:border-slate-700">
+            <footer className="border-common-color flex justify-end border-t-[1px] p-4">
                 <Submit value={submitButtonText} disabled={isDisabled} />
             </footer>
         </form>

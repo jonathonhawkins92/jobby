@@ -8,11 +8,11 @@ import { NavToggle } from "./toggle";
 import clsx from "clsx";
 
 function NavListItem({ children }: PropsWithChildren) {
-    return <li className="flex justify-end">{children}</li>;
+    return <li className="flex justify-end p-1 font-medium">{children}</li>;
 }
 
 const authButtonClassName =
-    "font-medium text-slate-700 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100";
+    "focus rounded-md p-1 font-medium text-slate-600 focus:text-slate-700 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:text-slate-300";
 function AuthButton() {
     const router = useRouter();
     const { isLoaded, isSignedIn } = useUser();

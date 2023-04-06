@@ -31,15 +31,10 @@ function stopPropagation(e: { stopPropagation: () => void }) {
 export function DialogClickBarrier({
     children,
     className,
-    isPretty = false,
-}: PropsWithChildren<{ className?: string; isPretty?: boolean }>) {
+}: PropsWithChildren<{ className?: string }>) {
     return (
         <div
-            className={clsx(
-                isPretty &&
-                    "relative rounded-md border-none bg-gradient-to-br from-[#ff80b5] to-[#9089fc] p-[1px]",
-                className
-            )}
+            className={className}
             onMouseDown={stopPropagation}
             onTouchStart={stopPropagation}
             onClick={stopPropagation}
