@@ -133,7 +133,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                         <Header className="grow-0">
                             <Controls />
                         </Header>
-                        <div className="container mx-auto flex grow flex-col overflow-y-auto text-center text-slate-800 dark:text-white">
+                        <div className="container mx-auto flex grow flex-col overflow-y-auto text-slate-800 dark:text-white">
                             {children}
                         </div>
                     </div>

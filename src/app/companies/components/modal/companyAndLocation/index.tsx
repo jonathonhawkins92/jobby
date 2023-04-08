@@ -5,7 +5,6 @@ import { Button } from "~/components/button";
 import { CrossMarkIcon } from "~/components/icons/crossMark";
 import { defaultCompanyAndLocation } from "~/app/api/companyAndLocation/model";
 import { Dialog, DialogClickBarrier } from "~/components/dialog";
-import { EditIcon } from "~/components/icons/edit";
 import { Fields as CompanyFields } from "../company/index";
 import { Form as LocationForm } from "../location/index";
 import { Label } from "~/components/form/label";
@@ -14,59 +13,10 @@ import { useForm, FormProvider } from "react-hook-form";
 import React, { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useToggle } from "~/hooks/useToggle";
-import clsx from "clsx";
 import type { CompanyAndLocation } from "~/app/api/companyAndLocation/model";
 import type { Location } from "~/app/api/location/model";
 import type { PropsWithChildren, FormEvent } from "react";
-
-function ChipButton({
-    children,
-    onClick,
-    isDisabled = false,
-}: PropsWithChildren<{
-    onClick: () => void;
-    isDisabled?: boolean;
-}>) {
-    return (
-        <button
-            className="focus input-button input-text input-bg input-bg-interaction rounded-[5px] p-1"
-            onClick={() => onClick()}
-            disabled={isDisabled}
-        >
-            {children}
-        </button>
-    );
-}
-
-function Chip({
-    children,
-    onRemove,
-    onEdit,
-    isDisabled = false,
-}: PropsWithChildren<{
-    onRemove: () => void;
-    onEdit: () => void;
-    isDisabled?: boolean;
-}>) {
-    return (
-        <div className="border-common input-bg input-text flex items-center gap-0.5 p-0.5 align-middle ">
-            <ChipButton onClick={() => onEdit()} isDisabled={isDisabled}>
-                <EditIcon />
-            </ChipButton>
-            <span
-                className={clsx(
-                    "border-common-color input-text border-x-[1px] px-2",
-                    isDisabled && "input-text-disabled"
-                )}
-            >
-                {children}
-            </span>
-            <ChipButton onClick={() => onRemove()} isDisabled={isDisabled}>
-                <CrossMarkIcon />
-            </ChipButton>
-        </div>
-    );
-}
+import { Chip } from "~/components/chip";
 
 function LocationField({
     isDisabled = false,
