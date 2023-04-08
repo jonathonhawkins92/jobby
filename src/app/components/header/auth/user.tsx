@@ -1,6 +1,4 @@
-"use client";
-
-import { UserButton } from "@clerk/nextjs/app-beta/client";
+import { UserButton } from "@clerk/nextjs/app-beta";
 
 export function User() {
     return (

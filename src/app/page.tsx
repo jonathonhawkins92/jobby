@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { descriptions } from "./layout";
-import { SignInPrompt } from "./components/landing-signin";
+import { SignInCTA } from "./components/signin-cta";
 import { randomArrayValue } from "~/utils/array";
 import { Button } from "~/components/button";
+import { SignedOut } from "@clerk/nextjs/app-beta";
 
 export default function Home() {
     return (
@@ -13,7 +14,9 @@ export default function Home() {
             <h2 className="text-lg leading-8 text-slate-800 dark:text-white">
                 <p>{randomArrayValue(descriptions)}</p>
             </h2>
-            <SignInPrompt />
+            <SignedOut>
+                <SignInCTA />
+            </SignedOut>
             <div className="flex items-center justify-center gap-x-3">
                 <Link tabIndex={-1} href="/jobs">
                     <Button>Jobs</Button>
