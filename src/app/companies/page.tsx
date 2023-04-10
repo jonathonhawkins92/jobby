@@ -100,18 +100,21 @@ export default async function Companies() {
                                             </InternalLink>
                                             {c.location[0]?.city &&
                                                 c.location[0]?.country && (
-                                                    <h3 className="pt-0.5 text-sm text-slate-700 dark:text-slate-300">
+                                                    <h2 className="pt-0.5 text-sm text-slate-700 dark:text-slate-300">
                                                         <GoogleMaps
                                                             query={`${c.location[0]?.city}+${c.location[0]?.country}`}
                                                         >
                                                             {`${c.location[0]?.city}, ${c.location[0]?.country}`}
                                                         </GoogleMaps>
-                                                    </h3>
+                                                    </h2>
                                                 )}
                                         </div>
                                     </div>
                                     <div className="flex max-w-[6.75rem] flex-auto grow-0 flex-wrap justify-end gap-2 ">
-                                        <JobButton companyId={c.id} />
+                                        <JobButton
+                                            companyName={c.name}
+                                            companyId={c.id}
+                                        />
                                         {isAdmin && (
                                             <CompanyModal
                                                 name={c.name}
@@ -127,6 +130,7 @@ export default async function Companies() {
                                             </CompanyModal>
                                         )}
                                         <Button
+                                            aria-label="Favorite"
                                             variant="flatIcon"
                                             className={clsx(
                                                 isFav &&

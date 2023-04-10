@@ -170,6 +170,7 @@ export function Modal({
     return (
         <>
             <ExternalButton
+                aria-label="A button that opens the Location creation modal"
                 disabled={isMutating}
                 onClick={() => setIsLocationModalOpen(true)}
             />
@@ -193,17 +194,5 @@ export function Modal({
             )}
         </>
     );
-}
-
-export function ServerControlledModal({
-    ExternalButton,
-}: {
-    ExternalButton: null | typeof Button;
-}) {
-    if (!ExternalButton) {
-        return null;
-    }
-
-    return <Modal ExternalButton={ExternalButton} />;
 }
 

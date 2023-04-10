@@ -177,7 +177,11 @@ export function Modal({
 
     return (
         <>
-            <Button variant="flatIcon" onClick={() => handleOpen(true)}>
+            <Button
+                aria-label="A button that opens the Company creation modal"
+                variant="flatIcon"
+                onClick={() => handleOpen(true)}
+            >
                 {children}
             </Button>
             {isOpen && (

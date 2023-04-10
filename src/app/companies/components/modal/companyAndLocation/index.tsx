@@ -36,6 +36,7 @@ function LocationField({
             <Label>Locations</Label>
             <div className="inline-flex flex-wrap gap-4">
                 <Button
+                    aria-label="A button that opens the Location creation modal"
                     disabled={isDisabled}
                     variant="flatIcon"
                     onClick={() => onAdd()}
@@ -195,6 +196,7 @@ export function Modal({ children }: PropsWithChildren) {
     return (
         <FormProvider {...methods}>
             <Button
+                aria-label="A button that opens the Company and Location creation modal"
                 disabled={isMutating}
                 variant="flatIcon"
                 onClick={() => setIsCompanyModalOpen(true)}
