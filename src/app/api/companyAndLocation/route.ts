@@ -1,17 +1,20 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 import { companyAndLocationSchema } from "./model";
 
-import { auth } from "@clerk/nextjs/app-beta";
+import { getAdminUser } from "~/utils/server/user";
+import {
+    Unauthorized,
+    Created,
+    InternalServerError,
+} from "~/utils/server/response";
 
 export async function POST(request: NextRequest) {
     try {
-        const { userId } = auth();
-        if (!userId) {
-            return new NextResponse("Not Authorized", {
-                status: 401,
-            });
+        const user = await getAdminUser();
+
+        if (!user) {
+            return new Unauthorized();
         }
 
         const input: unknown = await request.json();
@@ -19,14 +22,12 @@ export async function POST(request: NextRequest) {
         const result = await companyAndLocationSchema.safeParseAsync(input);
 
         if (!result.success) {
-            return new NextResponse("Invalid request", {
-                status: 400,
-            });
+            return new Unauthorized();
         }
 
         const company = await prisma.company.create({
             data: {
-                ownedBy: userId,
+                ownedBy: user.id,
                 logoUrl: result.data.logo,
                 name: result.data.name,
                 description: result.data.description,
@@ -45,14 +46,10 @@ export async function POST(request: NextRequest) {
             })),
         });
 
-        return new NextResponse(JSON.stringify({ id: company.id }), {
-            status: 201,
-        });
+        return new Created({ id: company.id });
     } catch (e) {
         console.error(e);
-        return new NextResponse("Server Error", {
-            status: 500,
-        });
+        return new InternalServerError();
     }
 }
 

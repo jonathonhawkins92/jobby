@@ -11,6 +11,7 @@ import { Chip } from "~/components/chip";
 import { Button } from "~/components/button";
 import JobButton from "./components/job-button";
 import clsx from "clsx";
+import { isAdminCheck } from "~/utils/server/user";
 
 export const metadata: Metadata = {
     title: "Jobby - Companies",
@@ -39,11 +40,8 @@ async function getCompanies() {
 const isFav = false;
 
 export default async function Companies() {
-    const user = await currentUser();
-
+    const isAdmin = isAdminCheck(await currentUser());
     const companies = await getCompanies();
-
-    const { isAdmin } = user?.privateMetadata as { isAdmin: boolean };
 
     return (
         <>

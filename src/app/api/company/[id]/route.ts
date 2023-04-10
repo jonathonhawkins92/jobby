@@ -1,21 +1,31 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 
-import { auth } from '@clerk/nextjs/app-beta';
 import { companySchema } from "../model";
+import { getAdminUser } from "~/utils/server/user";
+import {
+    Created,
+    InternalServerError,
+    InvalidRequest,
+    JsonResponse,
+    Unauthorized,
+} from "~/utils/server/response";
 
 export async function GET(
     _request: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    const companies = await prisma.company.findFirst({
-        where: {
-            id: params.id,
-        },
-    });
+    try {
+        const company = await prisma.company.findFirst({
+            where: {
+                id: params.id,
+            },
+        });
 
-    return NextResponse.json({ data: companies });
+        return new JsonResponse({ data: company });
+    } catch (_) {
+        return new InternalServerError();
+    }
 }
 
 export async function PUT(
@@ -23,27 +33,21 @@ export async function PUT(
     { params }: { params: { id: string } }
 ) {
     try {
-        const { userId } = auth();
-        if (!userId) {
-            return new NextResponse("Not Authorized", {
-                status: 401,
-            });
+        const user = await getAdminUser();
+        if (!user) {
+            return new Unauthorized();
         }
-        console.log("authed");
 
         const input: unknown = await request.json();
         const result = await companySchema.safeParseAsync(input);
 
         if (!result.success) {
-            return new NextResponse("Invalid request", {
-                status: 400,
-            });
+            return new InvalidRequest();
         }
-        console.log("valid");
 
         await prisma.company.update({
             data: {
-                ownedBy: userId,
+                ownedBy: user.id,
                 logoUrl: result.data.logo,
                 name: result.data.name,
                 description: result.data.description,
@@ -54,16 +58,10 @@ export async function PUT(
                 id: params.id,
             },
         });
-        console.log("updated");
 
-        return new NextResponse(JSON.stringify({ id: params.id }), {
-            status: 201,
-        });
-    } catch (e) {
-        console.error(e);
-        return new NextResponse("Server Error", {
-            status: 500,
-        });
+        return new Created({ id: params.id });
+    } catch (_) {
+        return new InternalServerError();
     }
 }
 
