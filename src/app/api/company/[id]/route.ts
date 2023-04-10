@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/app-beta';
 import { companySchema } from "../model";
 
 export async function GET(
@@ -23,7 +23,7 @@ export async function PUT(
     { params }: { params: { id: string } }
 ) {
     try {
-        const { userId } = getAuth(request);
+        const { userId } = auth();
         if (!userId) {
             return new NextResponse("Not Authorized", {
                 status: 401,

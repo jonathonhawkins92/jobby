@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/app-beta";
 import { companySchema } from "./model";
 
 export async function POST(request: NextRequest) {
-    const { userId } = getAuth(request);
+    const { userId } = auth();
     if (!userId) {
         return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
             status: 401,

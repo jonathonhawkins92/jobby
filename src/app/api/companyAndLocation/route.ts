@@ -3,11 +3,11 @@ import type { NextRequest } from "next/server";
 import { prisma } from "prisma/db";
 import { companyAndLocationSchema } from "./model";
 
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/app-beta";
 
 export async function POST(request: NextRequest) {
     try {
-        const { userId } = getAuth(request);
+        const { userId } = auth();
         if (!userId) {
             return new NextResponse("Not Authorized", {
                 status: 401,
