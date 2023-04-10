@@ -2,7 +2,7 @@
 
 import { AddIcon } from "~/components/icons/add";
 import { Button } from "~/components/button";
-import { CrossMarkIcon } from "~/components/icons/crossMark";
+import { CrossMarkIcon } from "~/components/icons/cross-mark";
 import { defaultCompanyAndLocation } from "~/app/api/companyAndLocation/model";
 import { Dialog, DialogClickBarrier } from "~/components/dialog";
 import { Fields as CompanyFields } from "../company/index";

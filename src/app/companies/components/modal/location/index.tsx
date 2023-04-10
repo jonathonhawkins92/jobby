@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "~/components/button";
-import { CrossMarkIcon } from "~/components/icons/crossMark";
+import { CrossMarkIcon } from "~/components/icons/cross-mark";
 import { defaultLocation } from "~/app/api/location/model";
 import { Dialog } from "~/components/dialog";
 import { Label } from "~/components/form/label";

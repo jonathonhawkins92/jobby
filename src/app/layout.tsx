@@ -120,7 +120,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 							-translate-x-1/2
 							rotate-[30deg]
 							bg-gradient-to-tr
-							from-purple-500
+							from-purple-300
 							to-white
 							opacity-30
 							dark:from-white
@@ -152,7 +152,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 							to-white
 							opacity-30 
 							dark:from-white
-							dark:to-purple-500
+							dark:to-purple-300
 						"
                         style={{
                             clipPath:

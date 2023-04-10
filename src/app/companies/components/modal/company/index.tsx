@@ -9,7 +9,7 @@ import type { PropsWithChildren } from "react";
 import { TextInput } from "~/components/form/input/text";
 import { TextareaInput } from "~/components/form/input/textarea";
 import { Label } from "~/components/form/label";
-import { CrossMarkIcon } from "~/components/icons/crossMark";
+import { CrossMarkIcon } from "~/components/icons/cross-mark";
 import { defaultCompany } from "~/app/api/company/model";
 import type { Company } from "~/app/api/company/model";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";

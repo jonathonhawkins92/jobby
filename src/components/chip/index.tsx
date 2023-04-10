@@ -1,4 +1,4 @@
-import { CrossMarkIcon } from "~/components/icons/crossMark";
+import { CrossMarkIcon } from "~/components/icons/cross-mark";
 import { EditIcon } from "~/components/icons/edit";
 import clsx from "clsx";
 import type { PropsWithChildren } from "react";

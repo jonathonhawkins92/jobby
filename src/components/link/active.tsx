@@ -1,17 +1,19 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-
+import clsx from "clsx";
+import Link from "next/link";
 import type { LinkProps } from "next/link";
 import type { PropsWithChildren } from "react";
-import clsx from "clsx";
-import { InternalLink } from "~/components/link/internal";
 
-type ActiveLinkProps = LinkProps & {
-    className?: string;
-    inactiveClassName?: string;
-    activeClassName: string;
-};
+type Props = Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    keyof LinkProps
+> &
+    LinkProps & {
+        inactiveClassName?: string;
+        activeClassName: string;
+    };
 
 export function ActiveLink({
     children,
@@ -19,11 +21,11 @@ export function ActiveLink({
     activeClassName,
     className,
     ...props
-}: PropsWithChildren<ActiveLinkProps>) {
+}: PropsWithChildren<Props>) {
     const pathname = usePathname();
 
     return (
-        <InternalLink
+        <Link
             {...props}
             className={clsx(
                 className,
@@ -31,7 +33,7 @@ export function ActiveLink({
             )}
         >
             {children}
-        </InternalLink>
+        </Link>
     );
 }
 
