@@ -43,7 +43,7 @@ export default async function Companies() {
 
     const companies = await getCompanies();
 
-    const isAdmin = user?.username === "jonathonhawkins92";
+    const { isAdmin } = user?.privateMetadata as { isAdmin: boolean };
 
     return (
         <>
