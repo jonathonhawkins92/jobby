@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { currentUser } from "@clerk/nextjs/app-beta";
+import { SignedIn, currentUser } from "@clerk/nextjs/app-beta";
 import { Modal as CompanyAndLocationModal } from "./components/modal/companyAndLocation";
 import { Modal as CompanyModal } from "./components/modal/company";
 import { prisma } from "prisma/db";
@@ -129,16 +129,20 @@ export default async function Companies() {
                                                 <EditIcon />
                                             </CompanyModal>
                                         )}
-                                        <Button
-                                            aria-label="Favorite"
-                                            variant="flatIcon"
-                                            className={clsx(
-                                                isFav &&
-                                                    "text-purple-400 dark:text-blue-400"
-                                            )}
-                                        >
-                                            <FavoriteIcon isActive={isFav} />
-                                        </Button>
+                                        <SignedIn>
+                                            <Button
+                                                aria-label="Favorite"
+                                                variant="flatIcon"
+                                                className={clsx(
+                                                    isFav &&
+                                                        "text-purple-400 dark:text-blue-400"
+                                                )}
+                                            >
+                                                <FavoriteIcon
+                                                    isActive={isFav}
+                                                />
+                                            </Button>
+                                        </SignedIn>
                                     </div>
                                 </header>
                                 <article className="flex flex-col gap-2 px-2 pt-4 ">
