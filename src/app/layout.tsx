@@ -102,18 +102,19 @@ export function generateMetadata(): Metadata {
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en" className="dark antialiased dark:bg-gray-900">
-            <body
-                className={clsx(
-                    " overflow-hidden dark:bg-gray-900",
-                    inter.className
-                )}
-            >
-                <div
-                    className="fixed inset-x-0 -top-80 -z-10 transform-gpu overflow-hidden blur-3xl"
-                    aria-hidden="true"
+            <ClerkProvider>
+                <body
+                    className={clsx(
+                        " overflow-hidden dark:bg-gray-900",
+                        inter.className
+                    )}
                 >
                     <div
-                        className="
+                        className="fixed inset-x-0 -top-80 -z-10 transform-gpu overflow-hidden blur-3xl"
+                        aria-hidden="true"
+                    >
+                        <div
+                            className="
 							left-[calc(50%-30rem)]
 							aspect-[1155/678]
 							w-[72.1875rem]
@@ -126,9 +127,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
 							dark:from-white
 							dark:to-blue-500
 						"
-                    />
-                </div>
-                <ClerkProvider>
+                        />
+                    </div>
                     <div className="flex h-screen flex-col">
                         <Header className="grow-0">
                             <Controls />
@@ -137,13 +137,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
                             {children}
                         </div>
                     </div>
-                </ClerkProvider>
-                <div
-                    className="fixed -bottom-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl"
-                    aria-hidden="true"
-                >
                     <div
-                        className="
+                        className="fixed -bottom-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl"
+                        aria-hidden="true"
+                    >
+                        <div
+                            className="
 							relative
 							aspect-[1155/678]
 							w-[72.1875rem]
@@ -154,13 +153,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
 							dark:from-white
 							dark:to-purple-300
 						"
-                        style={{
-                            clipPath:
-                                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-                        }}
-                    ></div>
-                </div>
-            </body>
+                            style={{
+                                clipPath:
+                                    "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+                            }}
+                        ></div>
+                    </div>
+                </body>
+            </ClerkProvider>
         </html>
     );
 }
