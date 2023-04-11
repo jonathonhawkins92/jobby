@@ -4,10 +4,6 @@ const config = {
         appDir: true,
     },
     reactStrictMode: true,
-    i18n: {
-        locales: ["en"],
-        defaultLocale: "en",
-    },
     images: {
         domains: [
             "images.clerk.dev",
