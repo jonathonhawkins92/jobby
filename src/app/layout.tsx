@@ -42,7 +42,7 @@ export function generateMetadata(): Metadata {
         icons: {
             apple: [
                 {
-                    url: `/apple-touch-icon.png?${pkg.version}`,
+                    url: `/favicon-180x180.png?${pkg.version}`,
                     sizes: "180x180",
                     type: "image/png",
                     rel: "apple-touch-icon",
@@ -55,30 +55,15 @@ export function generateMetadata(): Metadata {
                     type: "image/x-icon",
                     rel: "shortcut icon",
                 },
-                {
-                    url: `/favicon-16x16.png?${pkg.version}`,
-                    sizes: "16x16",
-                    type: "image/png",
-                    rel: "icon",
-                },
-                {
-                    url: `/favicon-32x32.png?${pkg.version}`,
-                    sizes: "32x32",
-                    type: "image/png",
-                    rel: "icon",
-                },
-                {
-                    url: `/android-chrome-192x192.png?${pkg.version}`,
-                    sizes: "192x192",
-                    type: "image/png",
-                    rel: "icon",
-                },
-                {
-                    url: `/favicon.png?${pkg.version}`,
-                    sizes: "512x512",
-                    type: "image/png",
-                    rel: "icon",
-                },
+                ...[16, 32, 192, 512].map((size) => {
+                    const sizes = `${size}x${size}`;
+                    return {
+                        url: `/favicon-${sizes}.png?${pkg.version}`,
+                        sizes: `${sizes}`,
+                        type: "image/png",
+                        rel: "icon",
+                    };
+                }),
                 {
                     url: `/safari-pinned-tab.svg?${pkg.version}`,
                     sizes: "512x512",
@@ -159,7 +144,7 @@ export function generateMetadata(): Metadata {
             siteName: title,
             images: [
                 {
-                    url: `/favicon.png?${pkg.version}`,
+                    url: `/favicon-512x512.png?${pkg.version}`,
                     width: 512,
                     height: 512,
                 },
@@ -173,7 +158,7 @@ export function generateMetadata(): Metadata {
             description,
             images: [
                 {
-                    url: `/favicon.png?${pkg.version}`,
+                    url: `/favicon-512x512.png?${pkg.version}`,
                     alt: "The Jobby logo",
                     type: "image/png",
                     width: 512,
