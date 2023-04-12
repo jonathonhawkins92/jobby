@@ -3,13 +3,7 @@ import { prisma } from "prisma/db";
 
 import { companySchema } from "../model";
 import { getAdminUser } from "~/utils/server/user";
-import {
-    Created,
-    InternalServerError,
-    InvalidRequest,
-    JsonResponse,
-    Unauthorized,
-} from "~/utils/server/response";
+import * as Resp from "~/utils/server/response";
 
 export async function GET(
     _request: NextRequest,
@@ -22,9 +16,9 @@ export async function GET(
             },
         });
 
-        return new JsonResponse({ data: company });
+        return new Resp.Json({ data: company });
     } catch (_) {
-        return new InternalServerError();
+        return new Resp.ServerError();
     }
 }
 
@@ -35,14 +29,14 @@ export async function PUT(
     try {
         const user = await getAdminUser();
         if (!user) {
-            return new Unauthorized();
+            return new Resp.Unauthorized();
         }
 
         const input: unknown = await request.json();
         const result = await companySchema.safeParseAsync(input);
 
         if (!result.success) {
-            return new InvalidRequest();
+            return new Resp.Invalid();
         }
 
         await prisma.company.update({
@@ -59,9 +53,9 @@ export async function PUT(
             },
         });
 
-        return new Created({ id: params.id });
+        return new Resp.Created({ id: params.id });
     } catch (_) {
-        return new InternalServerError();
+        return new Resp.ServerError();
     }
 }
 

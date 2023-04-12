@@ -3,18 +3,14 @@ import { prisma } from "prisma/db";
 import { companyAndLocationSchema } from "./model";
 
 import { getAdminUser } from "~/utils/server/user";
-import {
-    Unauthorized,
-    Created,
-    InternalServerError,
-} from "~/utils/server/response";
+import * as Resp from "~/utils/server/response";
 
 export async function POST(request: NextRequest) {
     try {
         const user = await getAdminUser();
 
         if (!user) {
-            return new Unauthorized();
+            return new Resp.Unauthorized();
         }
 
         const input: unknown = await request.json();
@@ -22,7 +18,7 @@ export async function POST(request: NextRequest) {
         const result = await companyAndLocationSchema.safeParseAsync(input);
 
         if (!result.success) {
-            return new Unauthorized();
+            return new Resp.Unauthorized();
         }
 
         const company = await prisma.company.create({
@@ -46,10 +42,10 @@ export async function POST(request: NextRequest) {
             })),
         });
 
-        return new Created({ id: company.id });
+        return new Resp.Created({ id: company.id });
     } catch (e) {
         console.error(e);
-        return new InternalServerError();
+        return new Resp.ServerError();
     }
 }
 

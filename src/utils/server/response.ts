@@ -22,7 +22,7 @@ export class Created extends NextResponse {
     }
 }
 
-export class InternalServerError extends NextResponse {
+export class ServerError extends NextResponse {
     constructor() {
         super("Internal Server Error", {
             status: 500,
@@ -30,7 +30,7 @@ export class InternalServerError extends NextResponse {
     }
 }
 
-export class InvalidRequest extends NextResponse {
+export class Invalid extends NextResponse {
     constructor() {
         super("Invalid Request", {
             status: 400,
@@ -38,10 +38,9 @@ export class InvalidRequest extends NextResponse {
     }
 }
 
-export class JsonResponse extends NextResponse {
-    constructor(response: Record<string, unknown>) {
-        super(JSON.stringify(response), {
-            status: 200,
-        });
+export class Json extends NextResponse {
+    constructor(response: Record<string, unknown>, status = 200) {
+        super(JSON.stringify(response), { status });
     }
 }
+
