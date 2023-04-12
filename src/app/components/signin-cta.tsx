@@ -8,7 +8,7 @@ export function SignInCTA() {
     return (
         <button
             onClick={() => openSignIn()}
-            className="focus input-button border-common input-text rounded-md bg-blue-600 px-3 py-1 text-white shadow-sm hover:bg-blue-500"
+            className="focus input-button border-common input-text rounded-md bg-purple-500 px-3 py-1 text-white shadow-sm hover:bg-purple-600 dark:bg-blue-500 dark:font-medium dark:hover:bg-blue-600"
         >
             Sign in
         </button>
