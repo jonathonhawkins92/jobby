@@ -105,39 +105,44 @@ export default async function Jobs() {
     const jobs = await getJobs();
 
     return (
-        <div className="p-4">
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {[
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                    ...jobs,
-                ].map((j) => (
-                    <li key={j.id} className="grow sm:grow-0">
-                        <Job
-                            logo={j.logo}
-                            company={j.company}
-                            title={j.title}
-                            salary={j.salary}
-                            tags={j.tags}
-                        />
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
+                <h1>Jobs</h1>
+            </header>
+            <section className="grow basis-0 overflow-y-auto p-4">
+                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {[
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                        ...jobs,
+                    ].map((j) => (
+                        <li key={j.id} className="grow sm:grow-0">
+                            <Job
+                                logo={j.logo}
+                                company={j.company}
+                                title={j.title}
+                                salary={j.salary}
+                                tags={j.tags}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </>
     );
 }
 

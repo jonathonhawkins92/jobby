@@ -175,7 +175,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <ClerkProvider>
                 <body
                     className={clsx(
-                        "overflow-hidden bg-violet-300/10 dark:bg-gray-900",
+                        "bg-violet-300/10 dark:bg-gray-900",
                         inter.className
                     )}
                 >
@@ -200,11 +200,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
 						"
                         />
                     </div>
-                    <div className="flex h-screen flex-col">
-                        <Header className="grow-0">
+                    <div className="flex min-h-screen flex-col">
+                        <Header className="flex-shrink-0">
                             <Controls />
                         </Header>
-                        <div className="container mx-auto flex grow flex-col overflow-y-auto text-slate-800 dark:text-white">
+                        <div className="container mx-auto flex grow flex-col text-slate-800 dark:text-white">
                             {children}
                         </div>
                     </div>

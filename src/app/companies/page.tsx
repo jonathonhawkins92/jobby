@@ -57,7 +57,7 @@ export default async function Companies() {
                     </CompanyAndLocationModal>
                 )}
             </header>
-            <section className="grow overflow-y-auto p-4">
+            <section className="grow basis-0 overflow-y-auto p-4">
                 <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
                     {companies.map((c) => (
                         <li key={c.id}>
