@@ -72,7 +72,7 @@ export default async function Companies() {
                                         {c.logoUrl && (
                                             <InternalLink
                                                 href={`/companies/${c.id}`}
-                                                className="border-common-color flex h-12 w-12 flex-none shrink-0 items-center justify-center overflow-hidden rounded-lg border-[1px] bg-slate-50/40 p-1.5 transition-colors dark:bg-slate-800/40"
+                                                className="border-common-color flex h-12 w-12 flex-none shrink-0 items-center justify-center rounded-lg border-[1px] bg-slate-50/40 p-1.5 transition-colors dark:bg-slate-800/40"
                                             >
                                                 <Image
                                                     className="rounded-sm"

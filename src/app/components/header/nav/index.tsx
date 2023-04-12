@@ -23,7 +23,7 @@ export function Nav() {
             </div>
             <div
                 className={clsx(
-                    "grow basis-full overflow-hidden sm:block",
+                    "grow basis-full sm:block",
                     isToggled ? "" : "hidden"
                 )}
             >
