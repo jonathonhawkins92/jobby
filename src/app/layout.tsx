@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import clsx from "clsx";
 import { randomArrayValue } from "~/utils/array";
 import type { Metadata } from "next";
+import pkg from "~/../package.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,22 +35,102 @@ export const descriptions = [
 export function generateMetadata(): Metadata {
     const title = "Jobby";
     const description = randomArrayValue(descriptions);
+
     return {
         title,
         description,
         icons: {
-            icon: [16, 32, 192, 512].map((s) => ({
-                url: `/favicon-${s}x${s}.png`,
-                sizes: `${s}x${s}`,
-                type: "image/png",
-            })),
             apple: [
                 {
-                    url: "/apple-icon.png",
+                    url: `/apple-touch-icon.png?${pkg.version}`,
                     sizes: "180x180",
                     type: "image/png",
+                    rel: "apple-touch-icon",
                 },
             ],
+            icon: [
+                {
+                    url: `/favicon.ico?${pkg.version}`,
+                    sizes: "48x48",
+                    type: "image/x-icon",
+                    rel: "shortcut icon",
+                },
+                {
+                    url: `/favicon-16x16.png?${pkg.version}`,
+                    sizes: "16x16",
+                    type: "image/png",
+                    rel: "icon",
+                },
+                {
+                    url: `/favicon-32x32.png?${pkg.version}`,
+                    sizes: "32x32",
+                    type: "image/png",
+                    rel: "icon",
+                },
+                {
+                    url: `/android-chrome-192x192.png?${pkg.version}`,
+                    sizes: "192x192",
+                    type: "image/png",
+                    rel: "icon",
+                },
+                {
+                    url: `/favicon.png?${pkg.version}`,
+                    sizes: "512x512",
+                    type: "image/png",
+                    rel: "icon",
+                },
+                {
+                    url: `/safari-pinned-tab.svg?${pkg.version}`,
+                    sizes: "512x512",
+                    rel: "mask-icon",
+                    type: "image/svg+xml",
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore-next-line
+                    color: "#805836",
+                },
+            ],
+        },
+        appleWebApp: {
+            capable: true,
+            title,
+            statusBarStyle: "default",
+            startupImage: {
+                url: `/safari-pinned-tab.svg?${pkg.version}`,
+            },
+        },
+        windows: {
+            tileColor: "#805836",
+            tileImage: `/mstile-144x144.png?${pkg.version}`,
+        },
+        themeColor: "#805836",
+        generator: "Next.js",
+        applicationName: "Jobby",
+        referrer: "origin-when-cross-origin",
+        keywords: [
+            "Next.js",
+            "React",
+            "Job",
+            "Career",
+            "Jobby",
+            "💩",
+            "Job Search Website",
+        ],
+        category: "Job Search Website",
+        authors: [
+            {
+                name: "Jonathon Hawkins",
+                url: "https://github.com/jonathonhawkins92",
+            },
+        ],
+        creator: "Jonathon Hawkins",
+        publisher: "Jonathon Hawkins",
+        colorScheme: "dark light",
+        formatDetection: {
+            telephone: true,
+            date: true,
+            address: true,
+            email: true,
+            url: true,
         },
         robots: {
             index: true,
@@ -82,7 +163,7 @@ export function generateMetadata(): Metadata {
             siteName: title,
             images: [
                 {
-                    url: "https://jobby-seven.vercel.app/favicon-512x512.png",
+                    url: `/favicon.png?${pkg.version}`,
                     width: 512,
                     height: 512,
                 },
@@ -94,8 +175,20 @@ export function generateMetadata(): Metadata {
             card: "summary_large_image",
             title,
             description,
-            images: ["https://jobby-seven.vercel.app/favicon-512x512.png"],
+            images: [
+                {
+                    url: `/favicon.png?${pkg.version}`,
+                    alt: "The Jobby logo",
+                    type: "image/png",
+                    width: 512,
+                    height: 512,
+                },
+            ],
         },
+        manifest: `/manifest.webmanifest?${pkg.version}`,
+        browserConfig: `/browserconfig.xml?${pkg.version}`,
+        "msapplication-TileImage": `/mstile-144x144.png?${pkg.version}`,
+        "msapplication-TileColor": "#805836",
     };
 }
 
