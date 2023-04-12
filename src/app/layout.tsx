@@ -37,6 +37,12 @@ export function generateMetadata(): Metadata {
     const description = randomArrayValue(descriptions);
 
     return {
+        viewport: {
+            width: "device-width",
+            initialScale: 1,
+            maximumScale: 1,
+            userScalable: false,
+        },
         title,
         description,
         icons: {
