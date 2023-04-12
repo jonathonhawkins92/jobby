@@ -98,10 +98,6 @@ export function generateMetadata(): Metadata {
                 url: `/safari-pinned-tab.svg?${pkg.version}`,
             },
         },
-        windows: {
-            tileColor: "#805836",
-            tileImage: `/mstile-144x144.png?${pkg.version}`,
-        },
         themeColor: "#805836",
         generator: "Next.js",
         applicationName: "Jobby",
@@ -186,9 +182,6 @@ export function generateMetadata(): Metadata {
             ],
         },
         manifest: `/manifest.webmanifest?${pkg.version}`,
-        browserConfig: `/browserconfig.xml?${pkg.version}`,
-        "msapplication-TileImage": `/mstile-144x144.png?${pkg.version}`,
-        "msapplication-TileColor": "#805836",
     };
 }
 
