@@ -5,7 +5,7 @@ import { companyAndLocationSchema } from "./model";
 import { getAdminUser } from "~/utils/server/user";
 import * as Resp from "~/utils/server/response";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 async function postCompanyAndLocation(input: unknown) {
     const user = await getAdminUser();
