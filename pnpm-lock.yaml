@@ -30,6 +30,9 @@ dependencies:
     version: 3.21.4
 
 devDependencies:
+  '@total-typescript/ts-reset':
+    specifier: ^0.4.2
+    version: 0.4.2
   '@types/eslint':
     specifier: 8.37.0
     version: 8.37.0
@@ -440,6 +443,10 @@ packages:
     dependencies:
       tslib: 2.5.0
     dev: false
+
+  /@total-typescript/ts-reset@0.4.2:
+    resolution: {integrity: sha512-vqd7ZUDSrXFVT1n8b2kc3LnklncDQFPvR58yUS1kEP23/nHPAO9l1lMjUfnPrXYYk4Hj54rrLKMW5ipwk7k09A==}
+    dev: true
 
   /@types/body-parser@1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
