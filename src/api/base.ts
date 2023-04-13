@@ -1,9 +1,7 @@
 import { env, isServer } from "~/env.mjs";
 
 export default class BaseAPI {
-    private readonly baseUrl = `${
-        isServer ? env.VERCEL_URL || env.DEPLOYMENT_URL : ""
-    }/api`;
+    private readonly baseUrl = `${isServer ? env.DEPLOYMENT_URL : ""}/api`;
 
     async fetch<ResponseType>(
         input: string,
