@@ -145,6 +145,7 @@ export function Modal({
 
     async function handleSubmit(data: Location) {
         setIsFetching(true);
+        // TODO: implement the API
         await fetch("/api/location", {
             method: "POST",
             headers: {

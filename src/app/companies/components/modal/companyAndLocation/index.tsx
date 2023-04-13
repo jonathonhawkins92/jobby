@@ -17,6 +17,7 @@ import type { CompanyAndLocation } from "~/app/api/companyAndLocation/model";
 import type { Location } from "~/app/api/location/model";
 import type { PropsWithChildren, FormEvent } from "react";
 import { Chip } from "~/components/chip";
+import Company from "~/api/company";
 
 function LocationField({
     isDisabled = false,
@@ -130,13 +131,7 @@ export function Modal({ children }: PropsWithChildren) {
 
     async function handleSubmitToServer(data: CompanyAndLocation) {
         setIsFetching(true);
-        await fetch("/api/companyAndLocation", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
+        await Company.postCompanyWithLocation(data);
         setIsFetching(false);
 
         startTransition(() => {

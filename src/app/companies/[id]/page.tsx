@@ -1,18 +1,11 @@
-import type { Company } from "@prisma/client";
+import Company from "~/api/company";
 
-async function getCompanyData(id: string) {
-    const res = await fetch(`http://localhost:3000/api/company/${id}`, {
-        method: "GET",
-        headers: {
-            accepts: "application/json",
-        },
-    });
-
-    return res.json() as Promise<Company>;
-}
-
-export default async function Company({ params }: { params: { id: string } }) {
-    const data = await getCompanyData(params.id);
+export default async function CompanyPage({
+    params,
+}: {
+    params: { id: string };
+}) {
+    const data = await Company.getCompanyById(params.id);
 
     return (
         <code>

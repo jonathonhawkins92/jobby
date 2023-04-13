@@ -1,59 +1,12 @@
-import { prisma } from "@/../prisma/db";
 import Image from "next/image";
 import type { Metadata } from "next";
+import Job from "~/api/job";
 
 export const metadata: Metadata = {
     title: "Jobby - Jobs",
 };
 
-async function getJobs() {
-    const jobs = await prisma.job.findMany({
-        select: {
-            id: true,
-            title: true,
-            description: true,
-            salaryAmount: true,
-            salaryCurrencyCode: true,
-            company: {
-                select: {
-                    logoUrl: true,
-                    name: true,
-                },
-            },
-            tag: {
-                select: {
-                    tag: {
-                        select: {
-                            id: true,
-                            value: true,
-                        },
-                    },
-                },
-            },
-        },
-    });
-
-    const result = jobs.map((job) => {
-        const salary = new Intl.NumberFormat("en", {
-            style: "currency",
-            currency: job.salaryCurrencyCode,
-        }).format(job.salaryAmount);
-
-        return {
-            id: job.id,
-            title: job.title,
-            description: job.description,
-            salary,
-            logo: job.company.logoUrl,
-            company: job.company.name,
-            tags: job.tag.map(({ tag }) => ({ id: tag.id, value: tag.value })),
-        };
-    });
-
-    return result.filter(Boolean);
-}
-
-function Job({
+function Card({
     logo,
     company,
     title,
@@ -102,8 +55,7 @@ function Job({
 }
 
 export default async function Jobs() {
-    const jobs = await getJobs();
-
+    const jobs = await Job.getOverview();
     return (
         <>
             <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
@@ -111,27 +63,9 @@ export default async function Jobs() {
             </header>
             <section className="grow basis-0 overflow-y-auto p-4">
                 <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {[
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                        ...jobs,
-                    ].map((j) => (
+                    {jobs.map((j) => (
                         <li key={j.id} className="grow sm:grow-0">
-                            <Job
+                            <Card
                                 logo={j.logo}
                                 company={j.company}
                                 title={j.title}

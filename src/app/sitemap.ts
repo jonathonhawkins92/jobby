@@ -1,26 +1,15 @@
 import type { MetadataRoute } from "next";
-import { prisma } from "prisma/db";
+import Job from "~/api/job";
+import Company from "~/api/company";
 
-async function getJobIds() {
-    return prisma.job.findMany({ select: { id: true } });
-}
-async function getCompanyIds() {
-    return prisma.company.findMany({ select: { id: true } });
-}
+export const runtime = "experimental-edge";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [jobIds, companyIds] = await Promise.all([
-        getJobIds(),
-        getCompanyIds(),
+        Job.getIds(),
+        Company.getIds(),
     ]);
-    const jobEntries = jobIds.map((job) => ({
-        url: `https://jobby-seven.vercel.app/jobs/${job.id}`,
-        lastModified: new Date(),
-    }));
-    const companyEntries = companyIds.map((company) => ({
-        url: `https://jobby-seven.vercel.app/companies/${company.id}`,
-        lastModified: new Date(),
-    }));
+
     return [
         {
             url: "https://jobby-seven.vercel.app",
@@ -30,12 +19,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: "https://jobby-seven.vercel.app/jobs",
             lastModified: new Date(),
         },
-        ...jobEntries,
+        ...jobIds.map((job) => ({
+            url: `https://jobby-seven.vercel.app/jobs/${job.id}`,
+            lastModified: new Date(),
+        })),
         {
             url: "https://jobby-seven.vercel.app/companies",
             lastModified: new Date(),
         },
-        ...companyEntries,
+        ...companyIds.map((company) => ({
+            url: `https://jobby-seven.vercel.app/companies/${company.id}`,
+            lastModified: new Date(),
+        })),
     ];
 }
 

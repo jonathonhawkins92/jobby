@@ -11,16 +11,17 @@ import { TextareaInput } from "~/components/form/input/textarea";
 import { Label } from "~/components/form/label";
 import { CrossMarkIcon } from "~/components/icons/cross-mark";
 import { defaultCompany } from "~/app/api/company/model";
-import type { Company } from "~/app/api/company/model";
+import type { Company as CompanyModel } from "~/app/api/company/model";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { Submit } from "~/components/form/input/submit";
+import Company from "~/api/company";
 
 export function Fields({ isDisabled }: { isDisabled: boolean }) {
     const {
         register,
         formState: { errors },
         setFocus,
-    } = useFormContext<Company>();
+    } = useFormContext<CompanyModel>();
 
     useEffect(() => {
         setFocus("name");
@@ -91,11 +92,11 @@ export function Form({
 }: {
     onClose: () => void;
     isDisabled?: boolean;
-    onSubmit: (company: Company) => void;
+    onSubmit: (company: CompanyModel) => void;
     titleText?: string;
     submitButtonText?: string;
-} & Partial<Company>) {
-    const methods = useForm<Company>({
+} & Partial<CompanyModel>) {
+    const methods = useForm<CompanyModel>({
         defaultValues: {
             ...defaultCompany,
             name,
@@ -143,7 +144,7 @@ export function Modal({
 }: PropsWithChildren<
     {
         id?: string;
-    } & Partial<Company>
+    } & Partial<CompanyModel>
 >) {
     const [isOpen, handleOpen] = useToggle();
 
@@ -155,15 +156,13 @@ export function Modal({
     const [isPending, startTransition] = useTransition();
     const [isFetching, setIsFetching] = useState(false);
 
-    async function handleSubmit(data: Company) {
+    async function handleSubmit(data: CompanyModel) {
         setIsFetching(true);
-        await fetch(id ? `/api/company/${id}` : "/api/company", {
-            method: id ? "PUT" : "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
+        if (id) {
+            await Company.putCompany(id, data);
+        } else {
+            await Company.postCompany(data);
+        }
         setIsFetching(false);
 
         startTransition(() => {

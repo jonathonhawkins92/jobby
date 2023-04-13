@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { SignedIn, currentUser } from "@clerk/nextjs/app-beta";
+import { SignedIn } from "@clerk/nextjs/app-beta";
 import { Modal as CompanyAndLocationModal } from "./components/modal/companyAndLocation";
 import { Modal as CompanyModal } from "./components/modal/company";
-import { prisma } from "prisma/db";
 import { EditIcon } from "~/components/icons/edit";
 import Image from "next/image";
 import { AddIcon } from "~/components/icons/add";
@@ -11,41 +10,22 @@ import { Chip } from "~/components/chip";
 import { Button } from "~/components/button";
 import JobButton from "./components/job-button";
 import clsx from "clsx";
-import { isAdminCheck } from "~/utils/server/user";
 import { InternalLink } from "~/components/link/internal";
 import { FavoriteIcon } from "~/components/icons/favorite";
 import { GoogleMaps } from "~/components/google-maps";
+import Company from "~/api/company";
+import { getAdminUser } from "~/utils/server/user";
 
 export const metadata: Metadata = {
     title: "Jobby - Companies",
 };
 
-async function getCompanies() {
-    const data = await prisma.company.findMany({
-        select: {
-            id: true,
-            name: true,
-            logoUrl: true,
-            description: true,
-            about: true,
-            industry: true,
-            location: {
-                select: {
-                    city: true,
-                    country: true,
-                },
-            },
-        },
-    });
-
-    return data;
-}
-
 const isFav = false;
 
 export default async function Companies() {
-    const isAdmin = isAdminCheck(await currentUser());
-    const companies = await getCompanies();
+    const user = await getAdminUser();
+    const isAdmin = user !== null;
+    const companies = await Company.getOverview();
 
     return (
         <>
