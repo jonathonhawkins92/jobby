@@ -1,25 +1,14 @@
-import { prisma } from "prisma/db";
-
-import * as Resp from "~/utils/server/response";
-
-export const runtime = "nodejs";
-
-async function getIdData() {
-    const data = await prisma.company.findMany({
-        select: { id: true },
-    });
-    return data;
-}
-
-export type GetIdData = Awaited<ReturnType<typeof getIdData>>;
+import * as Resp from "~/app/api/utils/response";
+import * as db from "./db";
+import ExceptionToResponse from "~/app/api/utils/exceptionToResponse";
 
 export async function GET() {
     try {
-        const data = await getIdData();
+        const data = await db.getIdData();
 
         return new Resp.Json(data);
-    } catch (_) {
-        return new Resp.ServerError();
+    } catch (exception) {
+        return ExceptionToResponse(exception);
     }
 }
 

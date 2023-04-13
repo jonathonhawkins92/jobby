@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import Job from "~/api/job";
+import { getOverviewData } from "~/app/api/job/overview/db";
 
 export const metadata: Metadata = {
     title: "Jobby - Jobs",
@@ -55,7 +55,7 @@ function Card({
 }
 
 export default async function Jobs() {
-    const jobs = await Job.getOverview();
+    const jobs = await getOverviewData();
     return (
         <>
             <header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">

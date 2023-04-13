@@ -1,5 +1,5 @@
-import type { GetIdData } from "~/app/api/job/id/route";
-import type { GetOverviewData } from "~/app/api/job/overview/route";
+import type { GetIdData } from "~/app/api/job/id/db";
+import type { GetOverviewData } from "~/app/api/job/overview/db";
 import BaseAPI from "./base";
 
 class API extends BaseAPI {

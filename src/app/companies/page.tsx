@@ -13,7 +13,7 @@ import clsx from "clsx";
 import { InternalLink } from "~/components/link/internal";
 import { FavoriteIcon } from "~/components/icons/favorite";
 import { GoogleMaps } from "~/components/google-maps";
-import Company from "~/api/company";
+import { getOverviewData } from "~/app/api/company/overview/db";
 import { getAdminUser } from "~/utils/server/user";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ const isFav = false;
 export default async function Companies() {
     const user = await getAdminUser();
     const isAdmin = user !== null;
-    const companies = await Company.getOverview();
+    const companies = await getOverviewData();
 
     return (
         <>

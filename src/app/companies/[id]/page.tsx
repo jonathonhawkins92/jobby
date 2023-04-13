@@ -1,11 +1,11 @@
-import Company from "~/api/company";
+import { getCompanyByIdData } from "~/app/api/company/[id]/db";
 
 export default async function CompanyPage({
     params,
 }: {
     params: { id: string };
 }) {
-    const data = await Company.getCompanyById(params.id);
+    const data = await getCompanyByIdData(params.id);
 
     return (
         <code>

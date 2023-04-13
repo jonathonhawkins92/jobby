@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { companySchema, defaultCompany } from "../company/model";
-import { locationSchema } from "../location/model";
+import { companySchema, defaultCompany } from "../company/schema";
+import { locationSchema } from "../location/schema";
 
 export const companyAndLocationSchema = companySchema.extend({
     location: z.array(locationSchema),

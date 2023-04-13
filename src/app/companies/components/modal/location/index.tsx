@@ -2,7 +2,7 @@
 
 import { Button } from "~/components/button";
 import { CrossMarkIcon } from "~/components/icons/cross-mark";
-import { defaultLocation } from "~/app/api/location/model";
+import { defaultLocation } from "~/app/api/location/schema";
 import { Dialog } from "~/components/dialog";
 import { Label } from "~/components/form/label";
 import { Submit } from "~/components/form/input/submit";
@@ -11,7 +11,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useToggle } from "~/hooks/useToggle";
-import type { Location } from "~/app/api/location/model";
+import type { Location } from "~/app/api/location/schema";
 
 export function Fields({ isDisabled }: { isDisabled: boolean }) {
     const { register, setFocus } = useFormContext<Location>();
