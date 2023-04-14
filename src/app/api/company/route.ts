@@ -1,7 +1,9 @@
 import type { NextRequest } from "next/server";
-import * as Resp from "~/app/api/utils/response";
-import * as db from "./db";
+
 import ExceptionToResponse from "~/app/api/utils/exceptionToResponse";
+import * as Resp from "~/app/api/utils/response";
+
+import * as db from "./db";
 
 export async function POST(request: NextRequest) {
     try {

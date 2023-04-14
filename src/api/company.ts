@@ -2,12 +2,13 @@ import type {
     GetCompanyByIdData,
     PutCompanyByIdData,
 } from "~/app/api/company/[id]/db";
-import type { GetOverviewData } from "~/app/api/company/overview/db";
-import type { GetIdData } from "~/app/api/company/id/db";
 import type { PostCompanyByIdData } from "~/app/api/company/db";
+import type { GetIdData } from "~/app/api/company/id/db";
+import type { GetOverviewData } from "~/app/api/company/overview/db";
 import type { Company } from "~/app/api/company/schema";
 import type { PostCompanyAndLocation } from "~/app/api/companyAndLocation/db";
 import type { CompanyAndLocation } from "~/app/api/companyAndLocation/schema";
+
 import BaseAPI from "./base";
 
 class API extends BaseAPI {

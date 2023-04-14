@@ -1,6 +1,7 @@
+import type { PropsWithChildren } from "react";
+
 import { ActiveLink } from "./active";
 import type { LinkProps } from "./type";
-import type { PropsWithChildren } from "react";
 
 export function ActiveInternalLink({
     children,

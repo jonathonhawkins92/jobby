@@ -1,8 +1,9 @@
 import { prisma } from "prisma/db";
+import * as Exceptions from "~/app/api/utils/exceptions";
+import { getAdminUser } from "~/utils/server/user";
+
 import { companyAndLocationSchema } from "./schema";
 
-import { getAdminUser } from "~/utils/server/user";
-import * as Exceptions from "~/app/api/utils/exceptions";
 
 export async function postCompanyAndLocation(input: unknown) {
     const user = await getAdminUser();

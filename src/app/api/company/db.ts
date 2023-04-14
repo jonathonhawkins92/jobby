@@ -1,7 +1,9 @@
 import { prisma } from "prisma/db";
-import { companySchema } from "./schema";
-import { getAdminUser } from "~/utils/server/user";
 import * as Resp from "~/app/api/utils/response";
+import { getAdminUser } from "~/utils/server/user";
+
+import { companySchema } from "./schema";
+
 
 export async function postCompanyData(input: unknown) {
     const user = await getAdminUser();

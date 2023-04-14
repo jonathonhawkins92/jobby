@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
+
+import { Auth } from "./auth";
 import { Nav } from "./nav";
 import { ThemeToggle } from "./theme-toggle";
-import { Auth } from "./auth";
 
 export function Controls() {
     const cookieStore = cookies();

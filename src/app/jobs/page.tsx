@@ -1,5 +1,6 @@
-import Image from "next/image";
 import type { Metadata } from "next";
+import Image from "next/image";
+
 import { getOverviewData } from "~/app/api/job/overview/db";
 
 export const metadata: Metadata = {

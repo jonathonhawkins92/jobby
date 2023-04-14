@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import Job from "~/api/job";
+
 import Company from "~/api/company";
+import Job from "~/api/job";
 
 export const runtime = "experimental-edge";
 
