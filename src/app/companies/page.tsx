@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import type { Metadata } from "next";
 import Image from "next/image";
 
-import { getOverviewData } from "~/app/api/company/overview/db";
+import { database } from "~/app/api/database";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card";
 import { Chip } from "~/components/chip";
@@ -27,7 +27,7 @@ const isFav = false;
 export default async function Companies() {
 	const user = await safeGetAdminUser();
 	const isAdmin = user !== null;
-	const companies = await getOverviewData();
+	const companies = await database.company.overview.get();
 
 	return (
 		<>

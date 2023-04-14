@@ -1,9 +1,7 @@
-import { CompanyInterface } from "./company/interface";
-import { JobInterface } from "./job/interface";
+import CompanyInterface from "./company/interface";
+import JobInterface from "./job/interface";
 
-const API = {
+export const api = {
 	company: CompanyInterface,
 	job: JobInterface,
 };
-
-export default API;

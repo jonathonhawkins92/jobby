@@ -5,7 +5,7 @@ import React, { useMemo, useState, useTransition } from "react";
 import type { PropsWithChildren, FormEvent } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
-import api from "~/app/api";
+import { api } from "~/app/api";
 import type { CompanyWithLocation } from "~/app/api/company/withLocation/schema";
 import { defaultCompanyWithLocation } from "~/app/api/company/withLocation/schema";
 import type { Location } from "~/app/api/location/schema";
@@ -134,10 +134,14 @@ export function Modal({ children }: PropsWithChildren) {
 	const [isPending, startTransition] = useTransition();
 	const [isFetching, setIsFetching] = useState(false);
 
-	async function handleSubmitToServer(data: CompanyWithLocation) {
+	async function handleSubmitToServer(input: CompanyWithLocation) {
 		setIsFetching(true);
-		await api.company.withLocation.post(data);
+		const { isError, data } = await api.company.withLocation.post(input);
 		setIsFetching(false);
+
+		if (isError) return;
+
+		console.log(data);
 
 		startTransition(() => {
 			router.refresh();

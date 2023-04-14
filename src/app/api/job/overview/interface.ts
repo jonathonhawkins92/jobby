@@ -1,6 +1,6 @@
 import BaseInterface from "~/app/api/utils/interface";
 
-import type { GetOverviewData } from "./db";
+import type { Get } from "./db";
 
 export class OverviewInterface extends BaseInterface {
 	constructor(origin: string) {
@@ -8,13 +8,13 @@ export class OverviewInterface extends BaseInterface {
 	}
 
 	public async get() {
-		const { error, success } = await this.fetch<GetOverviewData>();
-		if (error) {
-			throw new Error("Error getting company overview");
-		}
-		if (!success?.data) {
-			return [];
-		}
-		return success.data;
+		const res = await this.fetch<Get>({
+			fallbackData: [],
+		});
+		if (res.isError) return res;
+
+		console.log(res.data);
+
+		return res;
 	}
 }

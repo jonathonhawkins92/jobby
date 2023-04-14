@@ -4,7 +4,7 @@ import ExceptionToResponse from "~/app/api/utils/exceptionToResponse";
 import Request from "~/app/api/utils/request";
 import Response from "~/app/api/utils/response";
 
-import * as db from "./db";
+import db from "./db";
 
 export async function POST(rawRequest: NextRequest) {
 	try {
@@ -12,7 +12,7 @@ export async function POST(rawRequest: NextRequest) {
 
 		const input = await request.safeJson();
 
-		const output = await db.postCompanyData(input);
+		const output = await db.post(input);
 
 		return Response.Created(output);
 	} catch (exception) {

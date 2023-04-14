@@ -12,5 +12,4 @@ class Interface extends BaseInterface {
 	public ids = new IdsInterface(this.origin);
 }
 
-export const JobInterface = Interface.instance;
 export default Interface.instance;

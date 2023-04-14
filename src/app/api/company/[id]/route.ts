@@ -4,14 +4,18 @@ import ExceptionToResponse from "~/app/api/utils/exceptionToResponse";
 import Request from "~/app/api/utils/request";
 import Response from "~/app/api/utils/response";
 
-import * as db from "./db";
+import { ByIdDatabase } from "./db";
+
+type Params = { id: string };
 
 export async function GET(
 	_request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Params }
 ) {
 	try {
-		const data = await db.getCompanyByIdData(params.id);
+		const db = new ByIdDatabase(params.id);
+
+		const data = await db.get();
 		return Response.Json(data);
 	} catch (exception) {
 		return ExceptionToResponse(exception);
@@ -20,14 +24,16 @@ export async function GET(
 
 export async function PUT(
 	rawRequest: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Params }
 ) {
 	try {
 		const request = new Request(rawRequest);
 
 		const input = await request.safeJson();
 
-		const result = await db.putCompanyByIdData(params.id, input);
+		const db = new ByIdDatabase(params.id);
+
+		const result = await db.put(input);
 
 		return Response.Created(result);
 	} catch (exception) {

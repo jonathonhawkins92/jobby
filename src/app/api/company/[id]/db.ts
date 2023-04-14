@@ -4,45 +4,45 @@ import { getAdminUser } from "~/utils/server/user";
 
 import { companySchema } from "../schema";
 
-export const runtime = "nodejs";
+export class ByIdDatabase {
+	constructor(private id: string) {}
 
-export async function getCompanyByIdData(id: string) {
-	const data = await prisma.company.findFirst({
-		where: {
-			id,
-		},
-	});
-	return data;
-}
-
-export type GetCompanyByIdData = Awaited<ReturnType<typeof getCompanyByIdData>>;
-
-export async function putCompanyByIdData(companyId: string, input: unknown) {
-	const user = await getAdminUser();
-
-	const result = await companySchema.safeParseAsync(input);
-
-	if (!result.success) {
-		throw new InvalidError({
-			cause: result.error,
+	public async get() {
+		const data = await prisma.company.findFirst({
+			where: {
+				id: this.id,
+			},
 		});
+		return data;
 	}
 
-	await prisma.company.update({
-		data: {
-			ownedBy: user.id,
-			logoUrl: result.data.logo,
-			name: result.data.name,
-			description: result.data.description,
-			about: result.data.about,
-			industry: result.data.industry,
-		},
-		where: {
-			id: companyId,
-		},
-	});
+	public async put(input: unknown) {
+		const user = await getAdminUser();
 
-	return { id: companyId };
+		const result = await companySchema.safeParseAsync(input);
+
+		if (!result.success) {
+			throw new InvalidError({
+				cause: result.error,
+			});
+		}
+
+		await prisma.company.update({
+			data: {
+				ownedBy: user.id,
+				logoUrl: result.data.logo,
+				name: result.data.name,
+				description: result.data.description,
+				about: result.data.about,
+				industry: result.data.industry,
+			},
+			where: {
+				id: this.id,
+			},
+		});
+
+		return { id: this.id };
+	}
 }
-
-export type PutCompanyByIdData = Awaited<ReturnType<typeof putCompanyByIdData>>;
+export type Get = Awaited<ReturnType<ByIdDatabase["get"]>>;
+export type Put = Awaited<ReturnType<ByIdDatabase["put"]>>;

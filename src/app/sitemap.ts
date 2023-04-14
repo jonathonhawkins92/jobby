@@ -1,12 +1,11 @@
 import type { MetadataRoute } from "next";
 
-import * as CompanyDB from "~/app/api/company/ids/db";
-import * as JobDB from "~/app/api/job/ids/db";
+import { database } from "~/app/api/database";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const [jobIds, companyIds] = await Promise.all([
-		JobDB.getIdsData(),
-		CompanyDB.getIdsData(),
+		database.job.ids.get(),
+		database.company.ids.get(),
 	]);
 
 	return [

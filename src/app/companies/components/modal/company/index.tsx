@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import type { PropsWithChildren } from "react";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
-import api from "~/app/api";
+import { api } from "~/app/api";
 import { defaultCompany } from "~/app/api/company/schema";
 import type { Company as CompanyModel } from "~/app/api/company/schema";
 import { Button } from "~/components/button";
@@ -165,12 +165,15 @@ export function Modal({
 
 	async function handleSubmit(data: CompanyModel) {
 		setIsFetching(true);
+		let result: Awaited<ReturnType<(typeof api)["company"]["post"]>>;
 		if (id) {
-			await api.company.byId(id).put(data);
+			result = await api.company.byId(id).put(data);
 		} else {
-			await api.company.post(data);
+			result = await api.company.post(data);
 		}
 		setIsFetching(false);
+
+		if (result.isError) return;
 
 		startTransition(() => {
 			router.refresh();
