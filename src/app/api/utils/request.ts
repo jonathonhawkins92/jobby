@@ -1,52 +1,47 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 import { InvalidError } from "./exception";
 
-export default class NextRequestWrapper extends NextRequest {
-	constructor(request: NextRequest) {
-		super(request);
-	}
-
-	async safeArrayBuffer() {
+export default class NextRequestWrapper {
+	static async safeArrayBuffer(request: NextRequest) {
 		try {
-			const data = await this.arrayBuffer();
+			const data = await request.arrayBuffer();
 			return data;
 		} catch (exception) {
 			throw new InvalidError({ cause: "Invalid Array Buffer" });
 		}
 	}
 
-	async safeJson() {
+	static async safeJson(request: NextRequest) {
 		try {
-			const data = await this.json();
+			const data = await request.json();
 			return data;
 		} catch (exception) {
 			throw new InvalidError({ cause: "Invalid JSON" });
 		}
 	}
 
-	async safeText() {
+	static async safeText(request: NextRequest) {
 		try {
-			const data = await this.text();
+			const data = await request.text();
 			return data;
 		} catch (exception) {
 			throw new InvalidError({ cause: "Invalid Text" });
 		}
 	}
 
-	async safeBlob() {
+	static async safeBlob(request: NextRequest) {
 		try {
-			const data = await this.blob();
+			const data = await request.blob();
 			return data;
 		} catch (exception) {
 			throw new InvalidError({ cause: "Invalid Blob" });
 		}
 	}
 
-	async safeFormData() {
+	static async safeFormData(request: NextRequest) {
 		try {
-			const data = await this.formData();
+			const data = await request.formData();
 			return data;
 		} catch (exception) {
 			throw new InvalidError({ cause: "Invalid Form Data" });

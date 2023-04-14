@@ -24,28 +24,57 @@ export default class BaseInterface {
 				error: undefined;
 		  }
 	> {
-		const { fallbackData, ...rest } = init || {};
-		const res = await fetch(this.route, rest);
-		const json = await res.json();
-		const body = json as undefined | { data: ResponseType };
-		if (
-			!res.ok ||
-			!body ||
-			!body.data ||
-			typeof fallbackData === "undefined"
-		) {
-			return {
-				isError: true,
-				isSuccess: false,
-				data: undefined,
-				error: res.statusText,
-			};
+		try {
+			const { fallbackData, ...rest } = init || {};
+			const res = await fetch(this.route, rest);
+			const json = await res.json();
+			const body = json as undefined | { data: ResponseType };
+
+			if (!res.ok) {
+				return {
+					isError: true,
+					isSuccess: false,
+					data: undefined,
+					error: res.statusText,
+				};
+			} else if (body && body.data) {
+				return {
+					isError: false,
+					isSuccess: true,
+					data: body.data,
+					error: undefined,
+				};
+			} else if (typeof fallbackData !== "undefined") {
+				return {
+					isError: false,
+					isSuccess: true,
+					data: fallbackData,
+					error: undefined,
+				};
+			} else {
+				return {
+					isError: true,
+					isSuccess: false,
+					data: undefined,
+					error: "No data",
+				};
+			}
+		} catch (exception) {
+			if (exception instanceof Error) {
+				return {
+					isError: true,
+					isSuccess: false,
+					data: undefined,
+					error: exception.message,
+				};
+			} else {
+				return {
+					isError: true,
+					isSuccess: false,
+					data: undefined,
+					error: "Unknown error",
+				};
+			}
 		}
-		return {
-			isError: false,
-			isSuccess: true,
-			data: body.data || fallbackData,
-			error: undefined,
-		};
 	}
 }

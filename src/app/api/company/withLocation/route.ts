@@ -6,11 +6,9 @@ import Response from "~/app/api/utils/response";
 
 import { WithLocationDatabase } from "./db";
 
-export async function POST(rawRequest: NextRequest) {
+export async function POST(request: NextRequest) {
 	try {
-		const request = new Request(rawRequest);
-
-		const input = await request.safeJson();
+		const input = await Request.safeJson(request);
 
 		const db = new WithLocationDatabase();
 

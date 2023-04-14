@@ -173,7 +173,10 @@ export function Modal({
 		}
 		setIsFetching(false);
 
-		if (result.isError) return;
+		if (result.isError) {
+			console.log(result.error);
+			return;
+		}
 
 		startTransition(() => {
 			router.refresh();

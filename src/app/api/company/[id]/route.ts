@@ -16,6 +16,7 @@ export async function GET(
 		const db = new ByIdDatabase(params.id);
 
 		const data = await db.get();
+
 		return Response.Json(data);
 	} catch (exception) {
 		return ExceptionToResponse(exception);
@@ -23,13 +24,11 @@ export async function GET(
 }
 
 export async function PUT(
-	rawRequest: NextRequest,
+	request: NextRequest,
 	{ params }: { params: Params }
 ) {
 	try {
-		const request = new Request(rawRequest);
-
-		const input = await request.safeJson();
+		const input = await Request.safeJson(request);
 
 		const db = new ByIdDatabase(params.id);
 

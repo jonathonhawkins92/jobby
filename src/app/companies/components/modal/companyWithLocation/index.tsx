@@ -136,12 +136,12 @@ export function Modal({ children }: PropsWithChildren) {
 
 	async function handleSubmitToServer(input: CompanyWithLocation) {
 		setIsFetching(true);
-		const { isError, data } = await api.company.withLocation.post(input);
+
+		const { isError } = await api.company.withLocation.post(input);
+
 		setIsFetching(false);
 
 		if (isError) return;
-
-		console.log(data);
 
 		startTransition(() => {
 			router.refresh();

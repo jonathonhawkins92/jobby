@@ -67,7 +67,7 @@ export const HTTP_STATUS = {
 
 export default class NextResponseWrapper {
 	static Json(response: unknown, init: ResponseInit = {}) {
-		new NextResponse(JSON.stringify({ data: response }), {
+		return new NextResponse(JSON.stringify({ data: response }), {
 			status: HTTP_STATUS.OK,
 			...init,
 		});
@@ -77,25 +77,28 @@ export default class NextResponseWrapper {
 		const payload = response
 			? JSON.stringify({ data: response })
 			: "Created";
-		new NextResponse(payload, { status: HTTP_STATUS.CREATED, ...init });
+		return new NextResponse(payload, {
+			status: HTTP_STATUS.CREATED,
+			...init,
+		});
 	}
 
 	static InvalidRequest(init: ResponseInit = {}) {
-		new NextResponse("Invalid Request", {
+		return new NextResponse("Invalid Request", {
 			status: HTTP_STATUS.BAD_REQUEST,
 			...init,
 		});
 	}
 
 	static Unauthorized(init: ResponseInit = {}) {
-		new NextResponse("Unauthorized", {
+		return new NextResponse("Unauthorized", {
 			status: HTTP_STATUS.UNAUTHORIZED,
 			...init,
 		});
 	}
 
 	static InternalServerError(init: ResponseInit = {}) {
-		new NextResponse("Internal Server Error", {
+		return new NextResponse("Internal Server Error", {
 			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
 			...init,
 		});
