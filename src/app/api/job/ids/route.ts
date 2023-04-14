@@ -5,7 +5,7 @@ import * as db from "./db";
 
 export async function GET() {
 	try {
-		const data = await db.getOverviewData();
+		const data = await db.getIdsData();
 
 		return Response.Json(data);
 	} catch (exception) {

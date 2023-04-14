@@ -1,42 +1,103 @@
-export class Json extends Response {
-    constructor(response: unknown, init: ResponseInit = {}) {
-        super(JSON.stringify({ data: response }), { status: 200, ...init });
-    }
-}
+import { NextResponse } from "next/server";
 
-export class Created extends Response {
-    constructor(response: unknown, init: ResponseInit = {}) {
-        const payload = response
-            ? JSON.stringify({ data: response })
-            : "Created";
-        super(payload, { status: 201, ...init });
-    }
-}
+export const HTTP_STATUS = {
+	CONTINUE: 100,
+	SWITCHING_PROTOCOLS: 101,
+	PROCESSING: 102,
+	EARLY_HINTS: 103,
+	OK: 200,
+	CREATED: 201,
+	ACCEPTED: 202,
+	NON_AUTHORITATIVE_INFORMATION: 203,
+	NO_CONTENT: 204,
+	RESET_CONTENT: 205,
+	PARTIAL_CONTENT: 206,
+	MULTI_STATUS: 207,
+	ALREADY_REPORTED: 208,
+	IM_USED: 226,
+	MULTIPLE_CHOICES: 300,
+	MOVED_PERMANENTLY: 301,
+	FOUND: 302,
+	SEE_OTHER: 303,
+	NOT_MODIFIED: 304,
+	USE_PROXY: 305,
+	TEMPORARY_REDIRECT: 307,
+	PERMANENT_REDIRECT: 308,
+	BAD_REQUEST: 400,
+	UNAUTHORIZED: 401,
+	PAYMENT_REQUIRED: 402,
+	FORBIDDEN: 403,
+	NOT_FOUND: 404,
+	METHOD_NOT_ALLOWED: 405,
+	NOT_ACCEPTABLE: 406,
+	PROXY_AUTHENTICATION_REQUIRED: 407,
+	REQUEST_TIMEOUT: 408,
+	CONFLICT: 409,
+	GONE: 410,
+	LENGTH_REQUIRED: 411,
+	PRECONDITION_FAILED: 412,
+	PAYLOAD_TOO_LARGE: 413,
+	URI_TOO_LONG: 414,
+	UNSUPPORTED_MEDIA_TYPE: 415,
+	RANGE_NOT_SATISFIABLE: 416,
+	EXPECTATION_FAILED: 417,
+	IM_A_TEAPOT: 418,
+	MISDIRECTED_REQUEST: 421,
+	UNPROCESSABLE_ENTITY: 422,
+	LOCKED: 423,
+	FAILED_DEPENDENCY: 424,
+	TOO_EARLY: 425,
+	UPGRADE_REQUIRED: 426,
+	PRECONDITION_REQUIRED: 428,
+	TOO_MANY_REQUESTS: 429,
+	REQUEST_HEADER_FIELDS_TOO_LARGE: 431,
+	UNAVAILABLE_FOR_LEGAL_REASONS: 451,
+	INTERNAL_SERVER_ERROR: 500,
+	NOT_IMPLEMENTED: 501,
+	BAD_GATEWAY: 502,
+	SERVICE_UNAVAILABLE: 503,
+	GATEWAY_TIMEOUT: 504,
+	HTTP_VERSION_NOT_SUPPORTED: 505,
+	VARIANT_ALSO_NEGOTIATES: 506,
+	INSUFFICIENT_STORAGE: 507,
+	LOOP_DETECTED: 508,
+	NOT_EXTENDED: 510,
+	NETWORK_AUTHENTICATION_REQUIRED: 511,
+} as const;
 
-export class Invalid extends Response {
-    constructor(init: ResponseInit = {}) {
-        super("Invalid Request", {
-            status: 400,
-            ...init,
-        });
-    }
-}
+export default class NextResponseWrapper {
+	static Json(response: unknown, init: ResponseInit = {}) {
+		new NextResponse(JSON.stringify({ data: response }), {
+			status: HTTP_STATUS.OK,
+			...init,
+		});
+	}
 
-export class Unauthorized extends Response {
-    constructor(init: ResponseInit = {}) {
-        super("Unauthorized", {
-            status: 401,
-            ...init,
-        });
-    }
-}
+	static Created(response: unknown, init: ResponseInit = {}) {
+		const payload = response
+			? JSON.stringify({ data: response })
+			: "Created";
+		new NextResponse(payload, { status: HTTP_STATUS.CREATED, ...init });
+	}
 
-export class ServerError extends Response {
-    constructor(init: ResponseInit = {}) {
-        super("Internal Server Error", {
-            status: 500,
-            ...init,
-        });
-    }
-}
+	static InvalidRequest(init: ResponseInit = {}) {
+		new NextResponse("Invalid Request", {
+			status: HTTP_STATUS.BAD_REQUEST,
+			...init,
+		});
+	}
 
+	static Unauthorized(init: ResponseInit = {}) {
+		new NextResponse("Unauthorized", {
+			status: HTTP_STATUS.UNAUTHORIZED,
+			...init,
+		});
+	}
+
+	static InternalServerError(init: ResponseInit = {}) {
+		new NextResponse("Internal Server Error", {
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			...init,
+		});
+	}
+}

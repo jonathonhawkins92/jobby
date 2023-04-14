@@ -1,16 +1,15 @@
 import { getCompanyByIdData } from "~/app/api/company/[id]/db";
 
 export default async function CompanyPage({
-    params,
+	params,
 }: {
-    params: { id: string };
+	params: { id: string };
 }) {
-    const data = await getCompanyByIdData(params.id);
+	const data = await getCompanyByIdData(params.id);
 
-    return (
-        <code>
-            <pre>{JSON.stringify(data, null, 4)}</pre>
-        </code>
-    );
+	return (
+		<code>
+			<pre>{JSON.stringify(data, null, 4)}</pre>
+		</code>
+	);
 }
-

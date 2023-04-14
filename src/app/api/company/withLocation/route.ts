@@ -12,9 +12,9 @@ export async function POST(rawRequest: NextRequest) {
 
 		const input = await request.safeJson();
 
-		const output = await db.postCompanyData(input);
+		const data = await db.createCompanyWithLocation(input);
 
-		return Response.Created(output);
+		return Response.Created(data);
 	} catch (exception) {
 		return ExceptionToResponse(exception);
 	}

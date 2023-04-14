@@ -15,8 +15,8 @@ import { InternalLink } from "~/components/link/internal";
 import { getAdminUser } from "~/utils/server/user";
 
 import JobButton from "./components/job-button";
-import { Modal as CompanyModal } from "./components/modal/company";
-import { Modal as CompanyAndLocationModal } from "./components/modal/companyAndLocation";
+import { Modal as CompanyUpdateModal } from "./components/modal/company";
+import { Modal as CompanyCreateModal } from "./components/modal/companyWithLocation";
 
 export const metadata: Metadata = {
 	title: "Jobby - Companies",
@@ -34,9 +34,9 @@ export default async function Companies() {
 			<header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
 				<h1>Companies</h1>
 				{isAdmin && (
-					<CompanyAndLocationModal>
+					<CompanyCreateModal>
 						<AddIcon />
-					</CompanyAndLocationModal>
+					</CompanyCreateModal>
 				)}
 			</header>
 			<section className="grow basis-0 overflow-y-auto p-4">
@@ -98,7 +98,7 @@ export default async function Companies() {
 											companyId={c.id}
 										/>
 										{isAdmin && (
-											<CompanyModal
+											<CompanyUpdateModal
 												name={c.name}
 												logo={c.logoUrl || ""}
 												description={
@@ -109,7 +109,7 @@ export default async function Companies() {
 												id={c.id}
 											>
 												<EditIcon />
-											</CompanyModal>
+											</CompanyUpdateModal>
 										)}
 										<SignedIn>
 											<Button

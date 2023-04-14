@@ -5,7 +5,7 @@ import { Button } from "~/components/button";
 import { randomArrayValue } from "~/utils/array";
 
 import { SignInCTA } from "./components/signin-cta";
-import { descriptions } from "./layout";
+import descriptions from "./descriptions";
 
 export default function Home() {
 	return (

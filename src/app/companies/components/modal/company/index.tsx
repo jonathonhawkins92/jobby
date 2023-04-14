@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import type { PropsWithChildren } from "react";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
-import Company from "~/api/company";
+import api from "~/app/api";
 import { defaultCompany } from "~/app/api/company/schema";
 import type { Company as CompanyModel } from "~/app/api/company/schema";
 import { Button } from "~/components/button";
@@ -118,7 +118,10 @@ export function Form({
 		>
 			<header className="flex justify-between p-2">
 				<h1>{titleText}</h1>
-				<Button variant="flatIcon" onClick={() => onClose()}>
+				<Button
+					variant="flatIcon"
+					onClick={() => onClose()}
+				>
 					<CrossMarkIcon />
 				</Button>
 			</header>
@@ -128,7 +131,10 @@ export function Form({
 				</FormProvider>
 			</article>
 			<footer className="flex justify-end p-2">
-				<Submit value={submitButtonText} disabled={isDisabled} />
+				<Submit
+					value={submitButtonText}
+					disabled={isDisabled}
+				/>
 			</footer>
 		</form>
 	);
@@ -160,9 +166,9 @@ export function Modal({
 	async function handleSubmit(data: CompanyModel) {
 		setIsFetching(true);
 		if (id) {
-			await Company.putCompany(id, data);
+			await api.company.byId(id).put(data);
 		} else {
-			await Company.postCompany(data);
+			await api.company.post(data);
 		}
 		setIsFetching(false);
 
@@ -185,7 +191,10 @@ export function Modal({
 				{children}
 			</Button>
 			{isOpen && (
-				<Dialog onMouseDown={onClose} onTouchStart={onClose}>
+				<Dialog
+					onMouseDown={onClose}
+					onTouchStart={onClose}
+				>
 					<DialogClickBarrier className="rounded-md border-2 border-purple-300 bg-white shadow-md shadow-purple-300/90 dark:border-blue-300/40 dark:bg-slate-900 dark:text-white dark:shadow-blue-300/40 sm:max-w-[50%]">
 						<Form
 							onClose={onClose}

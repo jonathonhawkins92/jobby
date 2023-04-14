@@ -5,9 +5,9 @@ import React, { useMemo, useState, useTransition } from "react";
 import type { PropsWithChildren, FormEvent } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
-import Company from "~/api/company";
-import { defaultCompanyAndLocation } from "~/app/api/companyAndLocation/schema";
-import type { CompanyAndLocation } from "~/app/api/companyAndLocation/schema";
+import api from "~/app/api";
+import type { CompanyWithLocation } from "~/app/api/company/withLocation/schema";
+import { defaultCompanyWithLocation } from "~/app/api/company/withLocation/schema";
 import type { Location } from "~/app/api/location/schema";
 import { Button } from "~/components/button";
 import { Chip } from "~/components/chip";
@@ -112,7 +112,10 @@ function Form({
 				/>
 			</article>
 			<footer className="border-common-color flex justify-end border-t-[1px] p-4">
-				<Submit value={submitButtonText} disabled={isDisabled} />
+				<Submit
+					value={submitButtonText}
+					disabled={isDisabled}
+				/>
 			</footer>
 		</form>
 	);
@@ -131,9 +134,9 @@ export function Modal({ children }: PropsWithChildren) {
 	const [isPending, startTransition] = useTransition();
 	const [isFetching, setIsFetching] = useState(false);
 
-	async function handleSubmitToServer(data: CompanyAndLocation) {
+	async function handleSubmitToServer(data: CompanyWithLocation) {
 		setIsFetching(true);
-		await Company.postCompanyWithLocation(data);
+		await api.company.withLocation.post(data);
 		setIsFetching(false);
 
 		startTransition(() => {
@@ -150,8 +153,8 @@ export function Modal({ children }: PropsWithChildren) {
 		undefined | number
 	>();
 
-	const methods = useForm<CompanyAndLocation>({
-		defaultValues: defaultCompanyAndLocation,
+	const methods = useForm<CompanyWithLocation>({
+		defaultValues: defaultCompanyWithLocation,
 	});
 	const { getValues, setValue, handleSubmit, setFocus } = methods;
 
