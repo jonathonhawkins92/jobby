@@ -1,5 +1,5 @@
 import { prisma } from "prisma/db";
-import { NonAdminError, InvalidError } from "~/app/api/utils/exception";
+import { InvalidError } from "~/app/api/utils/exception";
 import { getAdminUser } from "~/utils/server/user";
 
 import { companySchema } from "../schema";
@@ -19,9 +19,6 @@ export type GetCompanyByIdData = Awaited<ReturnType<typeof getCompanyByIdData>>;
 
 export async function putCompanyByIdData(companyId: string, input: unknown) {
 	const user = await getAdminUser();
-	if (!user) {
-		throw new NonAdminError();
-	}
 
 	const result = await companySchema.safeParseAsync(input);
 

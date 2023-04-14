@@ -1,14 +1,11 @@
 import { prisma } from "prisma/db";
-import { NonAdminError, InvalidError } from "~/app/api/utils/exception";
+import { InvalidError } from "~/app/api/utils/exception";
 import { getAdminUser } from "~/utils/server/user";
 
 import { companySchema } from "./schema";
 
 export async function postCompanyData(input: unknown) {
 	const user = await getAdminUser();
-	if (!user) {
-		throw new NonAdminError();
-	}
 
 	const result = await companySchema.safeParseAsync(input);
 	if (!result.success) {

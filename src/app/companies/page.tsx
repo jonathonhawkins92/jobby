@@ -12,7 +12,7 @@ import { AddIcon } from "~/components/icons/add";
 import { EditIcon } from "~/components/icons/edit";
 import { FavoriteIcon } from "~/components/icons/favorite";
 import { InternalLink } from "~/components/link/internal";
-import { getAdminUser } from "~/utils/server/user";
+import { safeGetAdminUser } from "~/utils/server/user";
 
 import JobButton from "./components/job-button";
 import { Modal as CompanyUpdateModal } from "./components/modal/company";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const isFav = false;
 
 export default async function Companies() {
-	const user = await getAdminUser();
+	const user = await safeGetAdminUser();
 	const isAdmin = user !== null;
 	const companies = await getOverviewData();
 

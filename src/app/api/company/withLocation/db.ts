@@ -1,15 +1,11 @@
 import { prisma } from "prisma/db";
-import { NonAdminError, InvalidError } from "~/app/api/utils/exception";
+import { InvalidError } from "~/app/api/utils/exception";
 import { getAdminUser } from "~/utils/server/user";
 
 import { companyWithLocationSchema } from "./schema";
 
 export async function createCompanyWithLocation(input: unknown) {
 	const adminUser = await getAdminUser();
-
-	if (!adminUser) {
-		throw new NonAdminError();
-	}
 
 	const result = await companyWithLocationSchema.safeParseAsync(input);
 
