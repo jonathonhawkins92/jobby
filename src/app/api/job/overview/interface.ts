@@ -7,14 +7,9 @@ export class OverviewInterface extends BaseInterface {
 		super(`${origin}/overview`);
 	}
 
-	public async get() {
-		const res = await this.fetch<Get>({
+	public get() {
+		return this.fetch<Get>({
 			fallbackData: [],
 		});
-		if (res.isError) return res;
-
-		console.log(res.data);
-
-		return res;
 	}
 }
