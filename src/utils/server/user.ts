@@ -13,13 +13,13 @@ export function isAdminCheck(user: null | User): boolean {
 export const safeGetUser = currentUser;
 
 export async function getUser() {
-	const user = await currentUser();
+	const user = await safeGetUser();
 	if (!user) throw new UnauthorizedError();
 	return user;
 }
 
 export async function safeGetAdminUser(): Promise<User | null> {
-	const user = await getUser();
+	const user = await safeGetUser();
 	if (!isAdminCheck(user)) null;
 	return user;
 }
