@@ -1,7 +1,9 @@
 import { UnauthorizedError, InvalidError } from "./exception";
 import Response from "./response";
 
-export default function ExceptionToResponse(exception: unknown) {
+export default function ExceptionToResponse<Exception = unknown>(
+	exception: Exception
+) {
 	if (exception instanceof UnauthorizedError) {
 		return Response.Unauthorized();
 	}

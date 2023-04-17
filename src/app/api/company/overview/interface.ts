@@ -1,6 +1,8 @@
 import BaseInterface from "~/app/api/utils/interface";
 
-import type { Get } from "./db";
+import type { GET } from "./route";
+
+export type GetReturnType = AwaitedReturnType<typeof GET>["serializedBody"];
 
 export class OverviewInterface extends BaseInterface {
 	constructor(origin: string) {
@@ -8,6 +10,6 @@ export class OverviewInterface extends BaseInterface {
 	}
 
 	public get() {
-		return this.fetch<Get>({ fallbackData: [] });
+		return this.fetch<GetReturnType>({ fallbackData: [] });
 	}
 }

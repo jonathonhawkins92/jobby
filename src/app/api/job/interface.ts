@@ -9,6 +9,7 @@ class Interface extends BaseInterface {
 	static instance: Interface = new Interface("/company");
 
 	public overview = new OverviewInterface(this.origin);
+
 	public ids = new IdsInterface(this.origin);
 }
 

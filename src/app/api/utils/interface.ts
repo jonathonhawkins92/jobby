@@ -8,72 +8,63 @@ export default class BaseInterface {
 		this.route = `${this.base}${route}`;
 	}
 
-	protected async fetch<ResponseType>(
+	public json<ResponseType>(
+		init?: Omit<RequestInit, "body"> & {
+			fallbackData?: ResponseType;
+			body: unknown;
+		}
+	) {
+		return this.fetch<ResponseType>({
+			...init,
+			headers: {
+				...(init?.headers ?? {}),
+				"Content-Type": "application/json",
+			},
+			body: init?.body ? JSON.stringify(init.body) : undefined,
+		});
+	}
+
+	private success<ResponseType>(data: NonUndefined<ResponseType>) {
+		return {
+			isError: false,
+			isSuccess: true,
+			data,
+			error: undefined,
+		};
+	}
+
+	private error(error: string) {
+		return {
+			isError: true,
+			isSuccess: false,
+			data: undefined,
+			error,
+		};
+	}
+
+	public async fetch<ResponseType>(
 		init?: RequestInit & { fallbackData?: ResponseType }
-	): Promise<
-		| {
-				isError: true;
-				isSuccess: false;
-				data: undefined;
-				error: string;
-		  }
-		| {
-				isError: false;
-				isSuccess: true;
-				data: ResponseType;
-				error: undefined;
-		  }
-	> {
+	) {
 		try {
-			const { fallbackData, ...rest } = init || {};
-			const res = await fetch(this.route, rest);
+			const { fallbackData, ...config } = init ?? {};
+			const res = await fetch(this.route, config);
 			const json = await res.json();
 			const body = json as undefined | { data: ResponseType };
 
 			if (!res.ok) {
-				return {
-					isError: true,
-					isSuccess: false,
-					data: undefined,
-					error: res.statusText,
-				};
-			} else if (body && body.data) {
-				return {
-					isError: false,
-					isSuccess: true,
-					data: body.data,
-					error: undefined,
-				};
-			} else if (typeof fallbackData !== "undefined") {
-				return {
-					isError: false,
-					isSuccess: true,
-					data: fallbackData,
-					error: undefined,
-				};
+				return this.error(res.statusText);
+			} else if (body && typeof body.data !== "undefined") {
+				return this.success(body.data);
+			} else if (fallbackData && typeof fallbackData !== "undefined") {
+				return this.success(fallbackData);
 			} else {
-				return {
-					isError: true,
-					isSuccess: false,
-					data: undefined,
-					error: "No data",
-				};
+				return this.error("No data");
 			}
 		} catch (exception) {
 			if (exception instanceof Error) {
-				return {
-					isError: true,
-					isSuccess: false,
-					data: undefined,
-					error: exception.message,
-				};
+				return this.error(exception.message);
 			} else {
-				return {
-					isError: true,
-					isSuccess: false,
-					data: undefined,
-					error: "Unknown error",
-				};
+				return this.error("Unknown error");
 			}
 		}
 	}

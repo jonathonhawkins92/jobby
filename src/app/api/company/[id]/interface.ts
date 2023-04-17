@@ -2,7 +2,10 @@ import BaseInterface from "~/app/api/utils/interface";
 
 import type { Company } from "../schema";
 
-import type { Get, Put } from "./db";
+import type { GET, PUT } from "./route";
+
+export type GetReturnType = AwaitedReturnType<typeof GET>["serializedBody"];
+export type PutReturnType = AwaitedReturnType<typeof PUT>["serializedBody"];
 
 export class IdInterface extends BaseInterface {
 	constructor(origin: string, id: string) {
@@ -10,16 +13,10 @@ export class IdInterface extends BaseInterface {
 	}
 
 	public get() {
-		return this.fetch<Get>();
+		return this.fetch<GetReturnType>();
 	}
 
-	public put(data: Company) {
-		return this.fetch<Put>({
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
+	public put(body: Company) {
+		return this.json<PutReturnType>({ method: "PUT", body });
 	}
 }

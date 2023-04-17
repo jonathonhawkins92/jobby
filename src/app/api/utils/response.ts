@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { RouteHandlerResponse } from "./routeHandler";
 
 export const HTTP_STATUS = {
 	CONTINUE: 100,
@@ -66,39 +66,42 @@ export const HTTP_STATUS = {
 } as const;
 
 export default class NextResponseWrapper {
-	static Json(response: unknown, init: ResponseInit = {}) {
-		return new NextResponse(JSON.stringify({ data: response }), {
+	static Json<Body = unknown>(response: Body, init: ResponseInit = {}) {
+		return RouteHandlerResponse.json(response, {
 			status: HTTP_STATUS.OK,
 			...init,
 		});
 	}
 
-	static Created(response: unknown, init: ResponseInit = {}) {
-		const payload = response
-			? JSON.stringify({ data: response })
-			: "Created";
-		return new NextResponse(payload, {
+	static Created<Body = unknown>(response: Body, init: ResponseInit = {}) {
+		if (response) {
+			return RouteHandlerResponse.json(response, {
+				status: HTTP_STATUS.CREATED,
+				...init,
+			});
+		}
+		return new RouteHandlerResponse(undefined, {
 			status: HTTP_STATUS.CREATED,
 			...init,
 		});
 	}
 
 	static InvalidRequest(init: ResponseInit = {}) {
-		return new NextResponse("Invalid Request", {
+		return new RouteHandlerResponse(undefined, {
 			status: HTTP_STATUS.BAD_REQUEST,
 			...init,
 		});
 	}
 
 	static Unauthorized(init: ResponseInit = {}) {
-		return new NextResponse("Unauthorized", {
+		return new RouteHandlerResponse(undefined, {
 			status: HTTP_STATUS.UNAUTHORIZED,
 			...init,
 		});
 	}
 
 	static InternalServerError(init: ResponseInit = {}) {
-		return new NextResponse("Internal Server Error", {
+		return new RouteHandlerResponse(undefined, {
 			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
 			...init,
 		});
