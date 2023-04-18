@@ -1,4 +1,6 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs/app-beta";
+"use client"
+
+import { SignedIn, SignedOut } from "@clerk/nextjs/app-beta/client";
 
 import { SignInButton } from "./sign-in";
 import { User } from "./user";
