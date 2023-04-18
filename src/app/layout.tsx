@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import type { PropsWithChildren } from "react";
 
 import pkg from "~/../package.json";
@@ -158,18 +159,16 @@ export function generateMetadata(): Metadata {
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {
+	const cookieStore = cookies();
+	const theme = cookieStore.get("theme");
+
 	return (
 		<html
 			lang="en"
-			className="dark antialiased"
+			className={clsx("antialiased", theme?.value, inter.className)}
 		>
 			<ClerkProvider>
-				<body
-					className={clsx(
-						"bg-violet-300/10 dark:bg-gray-900",
-						inter.className
-					)}
-				>
+				<body className="bg-violet-300/10 dark:bg-gray-900">
 					<div
 						className="fixed inset-x-0 -top-80 -z-10 transform-gpu overflow-hidden blur-3xl"
 						aria-hidden="true"
