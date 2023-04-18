@@ -10,7 +10,7 @@ export class RouteHandlerResponse<SerializedBody> extends NextResponse {
 			body = rawBody;
 			init = rawInit;
 		} else if (typeof rawBody !== "undefined") {
-			body = JSON.stringify(rawBody);
+			body = JSON.stringify({ data: rawBody });
 			init = {
 				...rawInit,
 				headers: {
