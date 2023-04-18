@@ -10,7 +10,6 @@ import pkg from "~/../package.json";
 import { randomArrayValue } from "~/utils/array";
 
 import { Header } from "./components/header";
-import { Controls } from "./components/header/controls";
 import descriptions from "./descriptions";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -165,10 +164,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html
 			lang="en"
-			className={clsx("antialiased", theme?.value, inter.className)}
+			className={clsx(
+				"subpixel-antialiased",
+				inter.className,
+				theme?.value
+			)}
 		>
 			<ClerkProvider>
-				<body className="bg-violet-300/10 dark:bg-gray-900">
+				<body className="bg-violet-300/10 text-slate-800 dark:bg-gray-900 dark:text-white">
 					<div
 						className="fixed inset-x-0 -top-80 -z-10 transform-gpu overflow-hidden blur-3xl"
 						aria-hidden="true"
@@ -191,10 +194,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
 						/>
 					</div>
 					<div className="flex min-h-screen flex-col">
-						<Header className="flex-shrink-0">
-							<Controls />
-						</Header>
-						<div className="container mx-auto flex grow flex-col text-slate-800 dark:text-white">
+						<Header className="flex-shrink-0" />
+						<div className="container mx-auto flex grow flex-col">
 							{children}
 						</div>
 					</div>

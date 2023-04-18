@@ -2,10 +2,16 @@ import { clsx } from "clsx";
 import type { HTMLProps } from "react";
 
 const variants = {
+	flat: "flat",
+	flatIcon: "flatIcon",
+	flatImage: "flatImage",
+} as const;
+
+const padding = {
 	flat: `px-3 py-1`,
 	flatIcon: `p-1.5`,
 	flatImage: `p-0.5`,
-} as const;
+};
 
 const shapes = {
 	square: `rounded-md`,
@@ -27,7 +33,7 @@ export function Button({
 			type="button"
 			className={clsx(
 				"focus input-button input-text input-bg input-bg-interaction border-common",
-				variants[variant],
+				padding[variant],
 				shapes[shape],
 				className
 			)}

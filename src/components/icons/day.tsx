@@ -1,20 +1,22 @@
-export function DayIcon() {
-    return (
-        <svg
-            className="h-4 w-4"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <g transform="scale(0.825)">
-                <path
-                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                />
-            </g>
-        </svg>
-    );
-}
+import type { SVGAttributes } from "react";
 
+export function DayIcon(props: SVGAttributes<SVGElement>) {
+	return (
+		<svg
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.5}
+			viewBox="0 0 24 24"
+			xmlns="http://www.w3.org/2000/svg"
+			aria-hidden="true"
+			className="h-4 w-4"
+			{...props}
+		>
+			<path
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+			/>
+		</svg>
+	);
+}

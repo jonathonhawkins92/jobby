@@ -1,16 +1,22 @@
-export function NightIcon() {
-    return (
-        <svg
-            className="h-4 w-4"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <g transform="scale(0.825)">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </g>
-        </svg>
-    );
-}
+import type { SVGAttributes } from "react";
 
+export function NightIcon(props: SVGAttributes<SVGElement>) {
+	return (
+		<svg
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.5}
+			viewBox="0 0 24 24"
+			xmlns="http://www.w3.org/2000/svg"
+			aria-hidden="true"
+			className="h-4 w-4"
+			{...props}
+		>
+			<path
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+			/>
+		</svg>
+	);
+}
