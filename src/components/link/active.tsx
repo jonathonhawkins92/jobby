@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
+import { useMemo } from "react";
 
 type Props = Omit<
 	React.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -24,12 +25,17 @@ export function ActiveLink({
 }: PropsWithChildren<Props>) {
 	const pathname = usePathname();
 
+	const isActive = useMemo(() => {
+		if (typeof props.href !== "string") return false;
+		return pathname.split("/")[1] === props.href.split("/")[1];
+	}, [pathname, props.href]);
+
 	return (
 		<Link
 			{...props}
 			className={clsx(
 				className,
-				pathname === props.href ? activeClassName : inactiveClassName
+				isActive ? activeClassName : inactiveClassName
 			)}
 		>
 			{children}
