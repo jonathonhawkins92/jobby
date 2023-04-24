@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { database } from "~/app/api/database";
+import { Breadcrumb } from "~/components/breadcrumb";
+import { BreadcrumbItem } from "~/components/breadcrumb/item";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card";
 import { Chip } from "~/components/chip";
@@ -32,7 +34,9 @@ export default async function Companies() {
 	return (
 		<>
 			<header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
-				<h1>Companies</h1>
+				<Breadcrumb>
+					<BreadcrumbItem isCurrent>Companies</BreadcrumbItem>
+				</Breadcrumb>
 				{isAdmin && (
 					<CompanyCreateModal>
 						<AddIcon />
