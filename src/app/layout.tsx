@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import type { PropsWithChildren } from "react";
 
 import pkg from "~/../package.json";
+
 import { randomArrayValue } from "~/utils/array";
 
 import { Header } from "./components/header";
