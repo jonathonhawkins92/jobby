@@ -8,8 +8,9 @@ const config = {
 		"plugin:@typescript-eslint/recommended",
 		"plugin:import/recommended",
 		"plugin:import/typescript",
+		"prettier",
 	],
-	plugins: ["@typescript-eslint", "prettier", "import"],
+	plugins: ["@typescript-eslint", "import"],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		project: path.join(__dirname, "tsconfig.json"),
@@ -62,7 +63,7 @@ const config = {
 				],
 				pathGroups: [
 					{
-						pattern: "@/**",
+						pattern: "~/**",
 						group: "internal",
 						position: "after",
 					},
