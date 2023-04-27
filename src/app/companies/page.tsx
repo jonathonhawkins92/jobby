@@ -4,13 +4,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { database } from "~/app/api/database";
-import { Breadcrumb } from "~/components/breadcrumb";
-import { BreadcrumbItem } from "~/components/breadcrumb/item";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card";
 import { Chip } from "~/components/chip";
 import { GoogleMaps } from "~/components/google-maps";
-import { AddIcon } from "~/components/icons/add";
 import { EditIcon } from "~/components/icons/edit";
 import { FavoriteIcon } from "~/components/icons/favorite";
 import { InternalLink } from "~/components/link/internal";
@@ -18,7 +15,7 @@ import { safeGetAdminUser } from "~/utils/server/user";
 
 import JobButton from "./components/job-button";
 import { Modal as CompanyUpdateModal } from "./components/modal/company";
-import { Modal as CompanyCreateModal } from "./components/modal/companyWithLocation";
+import { Header } from "./header";
 
 export const metadata: Metadata = {
 	title: "Jobby - Companies",
@@ -33,16 +30,8 @@ export default async function Companies() {
 
 	return (
 		<>
-			<header className="flex items-end justify-between border-b-[1px] border-slate-300 p-4 dark:border-slate-700">
-				<Breadcrumb>
-					<BreadcrumbItem isCurrent>Companies</BreadcrumbItem>
-				</Breadcrumb>
-				{isAdmin && (
-					<CompanyCreateModal>
-						<AddIcon />
-					</CompanyCreateModal>
-				)}
-			</header>
+			{/* @ts-expect-error Server Components */}
+			<Header />
 			<section className="grow basis-0 overflow-y-auto p-4">
 				<ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
 					{companies.map((c) => (
