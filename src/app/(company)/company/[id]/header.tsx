@@ -2,7 +2,6 @@ import { SignedIn } from "@clerk/nextjs/app-beta";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { PropsWithChildren } from "react";
 
 import { database } from "~/app/api/database";
 import { Breadcrumb } from "~/components/breadcrumb";
@@ -12,7 +11,7 @@ import { EditIcon } from "~/components/icons/edit";
 import { FavoriteIcon } from "~/components/icons/favorite";
 import { safeGetAdminUser } from "~/utils/server/user";
 
-import { Modal as CompanyUpdateModal } from "../components/modal/company";
+import { Modal as CompanyUpdateModal } from "../../companies/components/modal/company";
 
 export const metadata: Metadata = {
 	title: "Jobby - Companies",

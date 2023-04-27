@@ -46,7 +46,7 @@ export default async function Companies() {
 									<div className="flex flex-1 gap-2">
 										{c.logoUrl && (
 											<InternalLink
-												href={`/companies/${c.id}`}
+												href={`/company/${c.id}`}
 												className="border-common-color flex h-12 w-12 flex-none shrink-0 items-center justify-center rounded-lg border-[1px] bg-slate-50/40 p-1.5 transition-colors dark:bg-slate-800/40"
 											>
 												<Image
@@ -61,7 +61,7 @@ export default async function Companies() {
 										<div>
 											<InternalLink
 												includeVisited
-												href={`/companies/${c.id}`}
+												href={`/company/${c.id}`}
 											>
 												<h1
 													className={clsx(
