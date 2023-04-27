@@ -7,6 +7,12 @@ dependencies:
   '@prisma/client':
     specifier: ^4.13.0
     version: 4.13.0(prisma@4.13.0)
+  '@t3-oss/env-core':
+    specifier: ^0.2.1
+    version: 0.2.1(zod@3.21.4)
+  '@t3-oss/env-nextjs':
+    specifier: ^0.2.1
+    version: 0.2.1(zod@3.21.4)
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
@@ -451,6 +457,23 @@ packages:
     resolution: {integrity: sha512-SjY/p4MmECVVEWspzSRpQEM3sjR17sP8PbGxELWrT+YZMBfiUyt1MRUNjMV23zohwlG2HYtCQOsCwsTHguXkyg==}
     dependencies:
       tslib: 2.5.0
+    dev: false
+
+  /@t3-oss/env-core@0.2.1(zod@3.21.4):
+    resolution: {integrity: sha512-aTf/E+t0i7WsHJelg8LaynUVgIXeQdDViIr3LCL8XiE+qzE8vWoTgfc+VML/lBBgE2cbcG2VCBnk45EUCjIRdQ==}
+    peerDependencies:
+      zod: ^3.0.0
+    dependencies:
+      zod: 3.21.4
+    dev: false
+
+  /@t3-oss/env-nextjs@0.2.1(zod@3.21.4):
+    resolution: {integrity: sha512-fWyoUHrwMz+CuO6lJ7jaWNj76LHminYzA0quYp1wv+8EKjHOuP/zf2k0FDtjnHBs//6K+kpWxttVW2Uby3SuQA==}
+    peerDependencies:
+      zod: ^3.0.0
+    dependencies:
+      '@t3-oss/env-core': 0.2.1(zod@3.21.4)
+      zod: 3.21.4
     dev: false
 
   /@total-typescript/ts-reset@0.4.2:
