@@ -1,4 +1,3 @@
-import { SignedOut } from "@clerk/nextjs/app-beta";
 import Link from "next/link";
 
 import { Button } from "~/components/button";
@@ -16,9 +15,7 @@ export default function Home() {
 			<h2 className="px-2 text-lg leading-8 text-slate-800 dark:text-white">
 				<p>{randomArrayValue(descriptions)}</p>
 			</h2>
-			<SignedOut>
-				<SignInCTA />
-			</SignedOut>
+			<SignInCTA />
 			<div className="flex items-center justify-center gap-x-3">
 				<Link
 					tabIndex={-1}
